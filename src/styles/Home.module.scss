@@ -1,0 +1,19 @@
+.main {
+  width: 100vw;
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 1rem;
+  transition: all 0.3s ease-in-out;
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    h1 {
+      flex: 1;
+    }
+  }
+
+  @media only screen and (min-width: 600px) {
+    margin-top: 10rem;
+  }
+}

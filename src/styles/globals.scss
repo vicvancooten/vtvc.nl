@@ -1,0 +1,69 @@
+:root {
+  /* Spacing */
+  --container-width: 600px;
+
+  /* Colours */
+  --bg: #fafafa;
+  --text: #222222;
+  --link: #333;
+  --subtle: #1a1a1a;
+}
+* {
+  box-sizing: border-box;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Colours */
+    --bg: #222222;
+    --text: white;
+    --link: #aeaeae;
+    --subtle: #3a3a3a;
+  }
+}
+
+html,
+body {
+  background-color: var(--bg);
+  margin: 0;
+  line-height: 1.7142857143;
+  letter-spacing: 0.0125rem;
+  color: var(--text);
+}
+
+p,
+h1 {
+  cursor: default;
+}
+.icon {
+  width: 1.5rem;
+}
+
+hr {
+  border: none;
+  height: 0.0625rem;
+  background-color: var(--subtle);
+  margin: 1rem 0;
+}
+
+.me {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 100rem;
+}
+.spotify {
+  display: flex;
+  align-items: center;
+  cursor: default;
+  svg {
+    margin-right: 0.5rem;
+  }
+}
+a {
+  color: var(--link);
+  transition: all 0.3s;
+  text-decoration: none;
+  &:hover {
+    color: var(--text);
+  }
+}
