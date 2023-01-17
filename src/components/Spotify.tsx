@@ -29,7 +29,11 @@ const Spotify = () => {
         await fetch("/api/spotify")
       ).json()) as SpotifyType;
 
-      if (response.isPlaying) setSpotifyInfo(response);
+      if (response.isPlaying) {
+        setSpotifyInfo(response);
+      } else {
+        setSpotifyInfo(undefined);
+      }
 
       // Refresh every 10 seconds if music is playing, every 30 seconds
       setTimeout(() => getSpotifyInfo(), response.isPlaying ? 10000 : 30000);
