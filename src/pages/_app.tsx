@@ -9,7 +9,7 @@ const roboto = Roboto({
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <main className={roboto.className}>
+    <main className={roboto.className} style={{ height: "100%" }}>
       <Component {...pageProps} />
     </main>
   );

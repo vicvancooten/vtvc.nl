@@ -4,6 +4,7 @@
   margin: 0 auto;
   padding: 1rem;
   transition: all 0.3s ease-in-out;
+  height: 100%;
   .header {
     display: flex;
     align-items: center;
@@ -14,6 +15,9 @@
   }
 
   @media only screen and (min-width: 600px) {
-    margin-top: 10rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
   }
 }

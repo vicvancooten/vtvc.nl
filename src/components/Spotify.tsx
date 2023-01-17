@@ -1,42 +1,44 @@
 import { useState, useEffect } from "react";
 
 interface SpotifyType {
-  is_playing: boolean;
-  item: {
+  album: {
     name: string;
-    external_urls: { spotify: string };
-    album: { name: string; external_urls: { spotify: string } };
-    artists: { name: string; external_urls: { spotify: string } }[];
+    image: string;
+    url: string;
+  };
+  artists: {
+    name: string;
+    url: string;
+  }[];
+  isPlaying: true;
+  track: {
+    name: string;
+    url: string;
+    beatsPerSecond: number;
+    tempo: number;
+    timeSignature: number;
   };
 }
 
 const Spotify = () => {
-  const [spotifyInfo, setSpotifyInfo] = useState<SpotifyType>({
-    is_playing: false,
-    item: {
-      name: "...",
-      external_urls: { spotify: "https://vtvc.nl" },
-      album: { name: "...", external_urls: { spotify: "https://vtvc.nl" } },
-      artists: [{ name: "...", external_urls: { spotify: "https://vtvc.nl" } }],
-    },
-  });
+  const [spotifyInfo, setSpotifyInfo] = useState<SpotifyType>();
 
   useEffect(() => {
     const getSpotifyInfo = async () => {
       const response = (await (
         await fetch("/api/spotify")
-      ).json()) as unknown as SpotifyType;
+      ).json()) as SpotifyType;
 
-      if (response.is_playing) setSpotifyInfo(response);
+      if (response.isPlaying) setSpotifyInfo(response);
 
       // Refresh every 10 seconds if music is playing, every 30 seconds
-      setTimeout(() => getSpotifyInfo(), response.is_playing ? 10000 : 30000);
+      setTimeout(() => getSpotifyInfo(), response.isPlaying ? 10000 : 30000);
     };
 
     getSpotifyInfo();
   }, []);
 
-  return spotifyInfo.is_playing ? (
+  return spotifyInfo?.isPlaying ? (
     <>
       <hr />
       <div className="spotify">
@@ -48,30 +50,27 @@ const Spotify = () => {
         </svg>
         <p>
           Currently listening to{" "}
-          <a
-            href={spotifyInfo.item.external_urls.spotify}
-            target="_blank"
-            rel="noreferrer"
-          >
-            {spotifyInfo.item.name}
-          </a>{" "}
-          by{" "}
-          <a
-            href={spotifyInfo.item.artists[0].external_urls.spotify}
-            target="_blank"
-            rel="noreferrer"
-          >
-            {spotifyInfo.item.artists[0].name}
-          </a>{" "}
-          from the album{" "}
-          <a
-            href={spotifyInfo.item.album.external_urls.spotify}
-            target="_blank"
-            rel="noreferrer"
-          >
-            {spotifyInfo.item.album.name}
+          <a href={spotifyInfo.track.url} target="_blank" rel="noreferrer">
+            {spotifyInfo.track.name}
           </a>
-          .
+          {" – "}
+          {spotifyInfo.artists.map(({ name, url }, i) => (
+            <a
+              href={url}
+              key={url}
+              title={name}
+              target="_blank"
+              rel="noreferrer"
+            >
+              {name}
+              {i !== spotifyInfo.artists.length - 1 && ", "}
+            </a>
+          ))}{" "}
+          (from{" "}
+          <a href={spotifyInfo.album.url} target="_blank" rel="noreferrer">
+            {spotifyInfo.album.name}
+          </a>
+          ).
         </p>
       </div>
     </>
