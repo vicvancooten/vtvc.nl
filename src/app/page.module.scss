@@ -1,0 +1,35 @@
+.main {
+  padding: 1rem;
+  svg {
+    width: 1.4rem;
+  }
+  header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    img {
+      border-radius: 5rem;
+    }
+  }
+  .contact {
+    display: flex;
+    text-align: center;
+    a {
+      flex: 1;
+      display: inline-block;
+      transition: all 0.3s ease-in-out;
+      &:nth-child(1):hover {
+        color: #0077b5;
+      }
+      &:nth-child(2):hover {
+        color: #239ab9;
+      }
+      &:nth-child(3):hover {
+        color: #4078c0;
+      }
+      &:nth-child(4):hover {
+        color: #6364ff;
+      }
+    }
+  }
+}

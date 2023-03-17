@@ -1,0 +1,23 @@
+.root {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  height: 2.8rem;
+  svg {
+    transition: all 0.3s ease-in-out;
+  }
+}
+.spotify {
+  &:hover {
+    svg {
+      color: #1db954;
+    }
+  }
+}
+.track-count {
+  &:hover {
+    svg {
+      color: #d01f3c;
+    }
+  }
+}
