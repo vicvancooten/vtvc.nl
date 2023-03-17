@@ -14,7 +14,7 @@ import {
   mdiGithub,
 } from '@mdi/js'
 
-export const revalidate = 60
+export const revalidate = 10
 
 export default async function Home() {
   const nowPlaying = await getNowPlaying()
@@ -82,7 +82,7 @@ export default async function Home() {
         </a>
       </div>
       <hr />
-      <Spotify fallback={nowPlaying} />
+      <Spotify fallbackData={nowPlaying} />
       <LastFM />
     </main>
   )

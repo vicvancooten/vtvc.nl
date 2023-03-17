@@ -1,19 +1,21 @@
 'use client'
 import styles from './styles.module.scss'
 
+import { NowPlayingResponse } from '@/lib/spotify'
+
+import { truncateText } from '@/lib/display'
+import useSWR from 'swr'
+import { fetcher } from '@/lib/fetcher'
+
 import Icon from '@mdi/react'
 import { mdiSpotify } from '@mdi/js'
 
-import useSWR from 'swr'
-import { fetcher } from '@/lib/fetcher'
-import { NowPlayingResponse } from '@/lib/spotify'
-
-const Spotify: React.FC<{ fallback: NowPlayingResponse }> = ({ fallback }) => {
-  const { data, error } = useSWR<NowPlayingResponse>(
-    '/api/now-playing',
-    fetcher,
-    { fallback }
-  )
+const Spotify: React.FC<{ fallbackData: NowPlayingResponse }> = ({
+  fallbackData,
+}) => {
+  const { data } = useSWR<NowPlayingResponse>('/api/now-playing', fetcher, {
+    fallbackData,
+  })
 
   if (!data) return <></>
 
@@ -27,15 +29,15 @@ const Spotify: React.FC<{ fallback: NowPlayingResponse }> = ({ fallback }) => {
       <p>
         I&apos;m listening to{' '}
         <a href={track!.url} target="_blank">
-          {track!.name}
+          {truncateText(track!.name, 35)}
         </a>{' '}
         by{' '}
         <a href={artists![0].url} target="_blank">
-          {artists![0].name}
+          {truncateText(artists![0].name, 25)}
         </a>{' '}
         from{' '}
         <a href={album!.url} target="_blank">
-          {album!.name}
+          {truncateText(album!.name, 25)}
         </a>
       </p>
     </div>
