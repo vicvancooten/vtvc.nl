@@ -1,4 +1,5 @@
 import { getNowPlaying } from '@/lib/spotify'
+import { getScrobbleCount } from '../lib/lastfm'
 
 import styles from './page.module.scss'
 
@@ -18,6 +19,7 @@ export const revalidate = 10
 
 export default async function Home() {
   const nowPlaying = await getNowPlaying()
+  const scrobbleCount = await getScrobbleCount()
 
   return (
     <main className={styles.main}>
@@ -82,8 +84,10 @@ export default async function Home() {
         </a>
       </div>
       <hr />
-      <Spotify fallbackData={nowPlaying} />
-      <LastFM />
+      <div className={styles['fun-facts']}>
+        <Spotify fallbackData={nowPlaying} />
+        <LastFM fallbackData={scrobbleCount} />
+      </div>
     </main>
   )
 }

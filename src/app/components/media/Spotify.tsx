@@ -15,6 +15,7 @@ const Spotify: React.FC<{ fallbackData: NowPlayingResponse }> = ({
 }) => {
   const { data } = useSWR<NowPlayingResponse>('/api/now-playing', fetcher, {
     fallbackData,
+    refreshInterval: 10000,
   })
 
   if (!data) return <></>
@@ -28,15 +29,15 @@ const Spotify: React.FC<{ fallbackData: NowPlayingResponse }> = ({
       <Icon path={mdiSpotify} size={1} />
       <p>
         I&apos;m listening to{' '}
-        <a href={track!.url} target="_blank">
+        <a href={track!.url} target="_blank" title={track!.name}>
           {truncateText(track!.name, 35)}
         </a>{' '}
         by{' '}
-        <a href={artists![0].url} target="_blank">
+        <a href={artists![0].url} target="_blank" title={artists![0].name}>
           {truncateText(artists![0].name, 25)}
         </a>{' '}
         from{' '}
-        <a href={album!.url} target="_blank">
+        <a href={album!.url} target="_blank" title={album!.name}>
           {truncateText(album!.name, 25)}
         </a>
       </p>

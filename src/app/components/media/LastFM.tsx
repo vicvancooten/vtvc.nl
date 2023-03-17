@@ -1,18 +1,23 @@
+'use client'
 import styles from './styles.module.scss'
 
 import Icon from '@mdi/react'
-import { mdiMusicNotePlus } from '@mdi/js'
+import { mdiFinance } from '@mdi/js'
 
-const LastFM = () => {
-  const lastFm = false
+import useSWR from 'swr'
+import { fetcher } from '@/lib/fetcher'
 
-  return lastFm ? (
+const LastFM: React.FC<{ fallbackData: number }> = ({ fallbackData }) => {
+  const { data } = useSWR<number>('/api/lastfm', fetcher, {
+    fallbackData,
+    refreshInterval: 100000,
+  })
+
+  return (
     <div className={`${styles.root} ${styles['track-count']}`}>
-      <Icon path={mdiMusicNotePlus} size={1} />
-      <p>Last.FM</p>
+      <Icon path={mdiFinance} size={1} />
+      <p>{Intl.NumberFormat('nl-NL').format(data)} recorded plays.</p>
     </div>
-  ) : (
-    <></>
   )
 }
 
