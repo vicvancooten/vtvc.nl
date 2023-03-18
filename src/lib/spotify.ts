@@ -45,43 +45,55 @@ export const getAccessToken = async () => {
     }),
   })
 
-  return response.json()
+  return await response.json()
 }
 
 export const getNowPlaying = async () => {
   const { access_token } = await getAccessToken()
 
-  const response = await fetch(
-    'https://api.spotify.com/v1/me/player/currently-playing',
-    {
-      headers: {
-        Authorization: `Bearer ${access_token}`,
-      },
-    }
-  )
-
-  if (response.status === 204 || response.status > 400) {
+  let response
+  let nowPlayingInfo
+  try {
+    response = await fetch(
+      'https://api.spotify.com/v1/me/player/currently-playing',
+      {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      }
+    )
+    nowPlayingInfo = await response.json()
+  } catch (error) {
     return { isPlaying: false }
   }
-  const nowPlayingInfo = await response.json()
+
+  if (
+    response.status === 204 ||
+    response.status === 202 ||
+    response.status > 400
+  ) {
+    return { isPlaying: false }
+  }
 
   const item = nowPlayingInfo.item as NowPlayingItemType
 
   return {
     album: {
-      name: item.album.name,
-      image: item.album.images[0].url,
-      url: item.album.external_urls.spotify,
+      name: item?.album?.name,
+      image: item?.album?.images?.[0]?.url,
+      url: item?.album?.external_urls?.spotify,
     },
-    artists: item.artists.map(({ name, external_urls: { spotify } }) => ({
-      name,
-      url: spotify,
-    })),
+    artists: (item?.artists ?? []).map(
+      ({ name, external_urls: { spotify } }) => ({
+        name,
+        url: spotify,
+      })
+    ),
     isPlaying: true,
     track: {
-      name: item.name,
-      url: item.external_urls.spotify,
-      ...(await getAudioFeatures(item.id, access_token)),
+      name: item?.name,
+      url: item?.external_urls?.spotify,
+      ...(await getAudioFeatures(item?.id, access_token)),
     },
   } as NowPlayingResponse
 }

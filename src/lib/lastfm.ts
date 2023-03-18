@@ -7,5 +7,5 @@ export const getScrobbleCount = cache(async () => {
 
   const body = await response.json()
 
-  return +body.user.playcount
+  return +body?.user?.playcount
 })
