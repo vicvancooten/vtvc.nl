@@ -2,9 +2,11 @@
   display: flex;
   gap: 1rem;
   align-items: center;
-  padding: 0.35rem 0;
+  padding: 0.5rem 0;
   svg {
     transition: all 0.3s ease-in-out;
+    min-width: 2rem;
+    min-height: 2rem;
   }
   .aotw {
     border-radius: 1rem;

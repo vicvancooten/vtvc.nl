@@ -37,15 +37,15 @@ const Spotify: React.FC<{ fallbackData: NowPlayingResponse }> = ({
       <p>
         I&apos;m listening to{' '}
         <a href={track?.url} target="_blank" title={track?.name}>
-          {truncateText(track?.name, 35)}
+          <strong>{truncateText(track?.name, 10000)}</strong>
         </a>{' '}
         by{' '}
         <a href={artists?.[0]?.url} target="_blank" title={artists?.[0]?.name}>
-          {truncateText(artists?.[0]?.name, 25)}
+          <strong>{truncateText(artists?.[0]?.name, 10000)}</strong>
         </a>{' '}
         (from{' '}
         <a href={album?.url} target="_blank" title={album?.name}>
-          {truncateText(album?.name, 25)}
+          {truncateText(album?.name, 10000)}
         </a>
         )
       </p>

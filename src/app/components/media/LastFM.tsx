@@ -26,8 +26,8 @@ const LastFM: React.FC<{ fallbackData: LastFMResponseType }> = ({
             src={data.weekly.image ?? '??'}
             alt={data?.weekly.name ?? '??'}
             className={styles.aotw}
-            width={25}
-            height={25}
+            width={32}
+            height={32}
           />
         )}
         <p>
