@@ -13,19 +13,11 @@
 .spotify {
   svg {
     border-radius: 50%;
-    box-shadow: 0 0 0 0 rgba(29, 185, 84, 1);
     transform: scale(1);
-    animation: pulse 2s infinite;
     padding: 0;
     margin: 0;
-  }
-  svg {
     color: #1db954;
-  }
-  @media (hover: none) {
-    svg {
-      color: #1db954;
-    }
+    animation: pulse 100s infinite;
   }
 }
 .track-count {
@@ -36,14 +28,20 @@
 
 @keyframes pulse {
   0% {
-    box-shadow: 0 0 0 0 rgba(29, 185, 84, 0.7);
+    box-shadow: 0 0 0 0px rgba(29, 185, 84, 1);
+    transform: scale(1);
   }
-
-  70% {
-    box-shadow: 0 0 0 0.5rem rgba(29, 185, 84, 0);
+  25% {
+    transform: scale(1.15);
   }
-
+  50% {
+    box-shadow: 0 0 0 0.7rem rgba(29, 185, 84, 0);
+    transform: scale(1);
+  }
+  75% {
+    transform: scale(1.1);
+  }
   100% {
-    box-shadow: 0 0 0 0 rgba(29, 185, 84, 0);
+    transform: scale(1);
   }
 }

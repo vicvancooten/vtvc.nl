@@ -15,7 +15,7 @@ import {
   mdiGithub,
 } from '@mdi/js'
 
-export const revalidate = 10
+export const revalidate = 30
 
 export default async function Home() {
   const nowPlaying = await getNowPlaying()
