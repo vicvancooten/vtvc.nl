@@ -37,6 +37,8 @@ export default async function Home() {
         <a
           href="https://a-insights.eu"
           title="We provide SaaS benchmarking, strategy and monitoring solutions."
+          target="_blank"
+          rel="noopener"
         >
           {' '}
           <svg

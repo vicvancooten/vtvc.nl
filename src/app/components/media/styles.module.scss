@@ -2,12 +2,28 @@
   display: flex;
   gap: 1rem;
   align-items: center;
-  height: 2.4rem;
+  padding: 0.35rem 0;
   svg {
     transition: all 0.3s ease-in-out;
   }
   .aotw {
     border-radius: 1rem;
+  }
+  p {
+    margin: 0;
+    padding: 0;
+  }
+  @media only screen and (max-width: 600px) {
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    svg {
+      height: 10rem;
+      width: 10rem;
+    }
+    p {
+      text-align: center;
+    }
   }
 }
 .spotify {
@@ -26,6 +42,8 @@
   }
 }
 
+// BPM animation
+// Animation speed is used for matching this animation to the BPM of the currently playing song
 @keyframes pulse {
   0% {
     box-shadow: 0 0 0 0px rgba(29, 185, 84, 1);
