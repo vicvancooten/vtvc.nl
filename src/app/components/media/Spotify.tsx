@@ -24,9 +24,16 @@ const Spotify: React.FC<{ fallbackData: NowPlayingResponse }> = ({
   if (!isPlaying) return <></>
 
   const { track, artists, album } = data
+
+  if (!track?.name) return <></>
+
+  const animationDuration = `${
+    (1 / data.track!.beatsPerSecond) * data.track!.timeSignature
+  }s`
+
   return (
     <div className={`${styles.root} ${styles.spotify}`}>
-      <Icon path={mdiSpotify} size={1} />
+      <Icon path={mdiSpotify} size={1} style={{ animationDuration }} />
       <p>
         I&apos;m listening to{' '}
         <a href={track?.url} target="_blank" title={track?.name}>
@@ -36,10 +43,11 @@ const Spotify: React.FC<{ fallbackData: NowPlayingResponse }> = ({
         <a href={artists?.[0]?.url} target="_blank" title={artists?.[0]?.name}>
           {truncateText(artists?.[0]?.name, 25)}
         </a>{' '}
-        from{' '}
+        (from{' '}
         <a href={album?.url} target="_blank" title={album?.name}>
           {truncateText(album?.name, 25)}
         </a>
+        )
       </p>
     </div>
   )

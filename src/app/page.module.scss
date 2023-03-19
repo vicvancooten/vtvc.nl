@@ -30,6 +30,20 @@
       &:nth-child(4):hover {
         color: #6364ff;
       }
+      @media (hover: none) {
+        &:nth-child(1) {
+          color: #0077b5;
+        }
+        &:nth-child(2) {
+          color: #239ab9;
+        }
+        &:nth-child(3) {
+          color: #4078c0;
+        }
+        &:nth-child(4) {
+          color: #6364ff;
+        }
+      }
     }
   }
   .fun-facts {
