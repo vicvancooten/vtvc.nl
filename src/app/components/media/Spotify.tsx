@@ -9,10 +9,13 @@ import { fetcher } from '@/lib/fetcher'
 
 import Icon from '@mdi/react'
 import { mdiSpotify } from '@mdi/js'
+import { useState } from 'react'
 
 const Spotify: React.FC<{ fallbackData: NowPlayingResponse }> = ({
   fallbackData,
 }) => {
+  const [animateSpotify, setAnimateSpotify] = useState(true)
+
   const { data } = useSWR<NowPlayingResponse>('/api/now-playing', fetcher, {
     fallbackData,
     refreshInterval: 10000,
@@ -33,7 +36,19 @@ const Spotify: React.FC<{ fallbackData: NowPlayingResponse }> = ({
 
   return (
     <div className={`${styles.root} ${styles.spotify}`}>
-      <Icon path={mdiSpotify} size={1} style={{ animationDuration }} />
+      <div
+        onClick={() => {
+          setAnimateSpotify(false)
+          setTimeout(() => setAnimateSpotify(true), 0)
+        }}
+      >
+        <Icon
+          path={mdiSpotify}
+          size={1}
+          style={{ animationDuration }}
+          className={animateSpotify ? styles.animating : ''}
+        />
+      </div>
       <p>
         I&apos;m listening to{' '}
         <a href={track?.url} target="_blank" title={track?.name}>
