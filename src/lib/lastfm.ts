@@ -20,17 +20,20 @@ interface LastFMAlbumImageType {
   '#text': string
 }
 
-export const getScrobbleCount: () => Promise<LastFMResponseType> = cache(
+export const invalidate = 55
+
+export const getLastFMData: () => Promise<LastFMResponseType> = cache(
   async () => {
+    const username = process.env.LASTFM_USER
     // Fetch user info
     const overall_response = await fetch(
-      `https://ws.audioscrobbler.com/2.0/?method=user.getinfo&user=Duveaux&api_key=${process.env.LASTFM_API_KEY}&format=json`
+      `https://ws.audioscrobbler.com/2.0/?method=user.getinfo&user=${username}&api_key=${process.env.LASTFM_API_KEY}&format=json`
     )
     const overall = await overall_response.json()
 
     // Fetch top album
     const weekly_response = await fetch(
-      `https://ws.audioscrobbler.com/2.0/?method=user.getWeeklyAlbumChart&user=Duveaux&api_key=${process.env.LASTFM_API_KEY}&format=json`
+      `https://ws.audioscrobbler.com/2.0/?method=user.getWeeklyAlbumChart&user=${username}&api_key=${process.env.LASTFM_API_KEY}&format=json`
     )
     const weekly = await weekly_response.json()
 
@@ -43,7 +46,7 @@ export const getScrobbleCount: () => Promise<LastFMResponseType> = cache(
       aotw_query = `artist=${album?.artist?.['#text']}&album=${album?.name}`
     }
     const aotw_response = await fetch(
-      `https://ws.audioscrobbler.com/2.0/?method=album.getInfo&${aotw_query}&user=Duveaux&api_key=${process.env.LASTFM_API_KEY}&format=json`
+      `https://ws.audioscrobbler.com/2.0/?method=album.getInfo&${aotw_query}&user=${username}&api_key=${process.env.LASTFM_API_KEY}&format=json`
     )
 
     const aotw = await aotw_response.json()
