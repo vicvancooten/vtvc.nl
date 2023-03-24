@@ -32,7 +32,8 @@ const LastFM: React.FC<{ fallbackData: LastFMResponseType }> = ({
         )}
         <p>
           Album of the week:<strong> {data?.weekly.name}</strong> by{' '}
-          <strong>{data?.weekly.artist}</strong> ({data?.weekly.count} plays
+          <strong>{data?.weekly.artist}</strong> ({data?.weekly.count} tracks
+          played
           {(data?.weekly.percentage ?? 0) > 0.0099 &&
             `,  ${data?.weekly.percentage?.toFixed(2)}% of album totals`}
           )

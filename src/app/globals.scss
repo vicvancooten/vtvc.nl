@@ -41,3 +41,8 @@ hr {
   background-color: $text;
   border: none;
 }
+
+a,
+strong {
+  color: var(--accent-color);
+}

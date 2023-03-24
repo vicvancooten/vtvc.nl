@@ -1,11 +1,13 @@
 import { getNowPlaying } from '@/lib/spotify'
 import { getLastFMData } from '../lib/lastfm'
+import { getHassData } from '@/lib/hass'
 
 import styles from './page.module.scss'
 
-import LastFM from './components/media/LastFM'
-import Spotify from './components/media/Spotify'
-import Me from './components/Me'
+import LastFM from '@/app/components/stats/LastFM'
+import Spotify from '@/app/components/stats/Spotify'
+import Hass from '@/app/components/stats/Hass'
+import Me from '@/app/components/Me'
 
 import Icon from '@mdi/react'
 import {
@@ -15,11 +17,12 @@ import {
   mdiGithub,
 } from '@mdi/js'
 
-export const revalidate = 30
+export const revalidate = 15
 
 export default async function Home() {
-  const nowPlaying = await getNowPlaying()
-  const scrobbleCount = await getLastFMData()
+  const spotifyData = await getNowPlaying()
+  const lastfmData = await getLastFMData()
+  const hassData = await getHassData()
 
   return (
     <main className={styles.main}>
@@ -28,9 +31,9 @@ export default async function Home() {
         <h1>Vic van Cooten</h1>
       </header>
       <p>
-        Hi. I&apos;m Vic, a full-stack software engineer from Utrecht. I use a
-        broad set of skills to make technology and processes work simpler and
-        better.
+        Hi. I&apos;m <strong style={{ color: hassData.color }}>Vic</strong>, a
+        full-stack software engineer from Utrecht. I use a broad set of skills
+        to make technology and processes work simpler and better.
       </p>
       <p>
         I currently work at{' '}
@@ -87,10 +90,11 @@ export default async function Home() {
           <Icon path={mdiMastodon} size={1} />
         </a>
       </div>
-      <hr />
+      <hr style={{ backgroundColor: hassData.color }} />
       <div className={styles['fun-facts']}>
-        <Spotify fallbackData={nowPlaying} />
-        <LastFM fallbackData={scrobbleCount} />
+        <Spotify fallbackData={spotifyData} />
+        <LastFM fallbackData={lastfmData} />
+        <Hass fallbackData={hassData} />
       </div>
     </main>
   )

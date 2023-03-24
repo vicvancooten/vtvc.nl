@@ -5,3 +5,8 @@ export async function fetcher<JSON = any>(
   const res = await fetch(input, init)
   return res.json()
 }
+
+export const fetchUrl = async (
+  url: string,
+  headers?: { [key: string]: string }
+) => await (await fetch(url, { headers })).json()
