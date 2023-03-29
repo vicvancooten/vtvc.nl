@@ -1,5 +1,6 @@
 import './globals.scss'
 import styles from './layout.module.scss'
+import { Analytics } from '@vercel/analytics/react'
 
 import { Roboto } from 'next/font/google'
 
@@ -20,6 +21,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => (
       <div className={styles.main}>
         <div className={styles.content}>{children}</div>
       </div>
+      <Analytics />
     </body>
   </html>
 )

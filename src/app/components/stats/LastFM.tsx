@@ -10,8 +10,9 @@ import { fetcher } from '@/lib/fetcher'
 
 import { LastFMResponseType } from '@/lib/lastfm'
 
-const LastFM: React.FC<{ fallbackData: LastFMResponseType }> = ({
+const LastFM: React.FC<{ fallbackData: LastFMResponseType; color: string }> = ({
   fallbackData,
+  color,
 }) => {
   const { data } = useSWR<LastFMResponseType>('/api/lastfm', fetcher, {
     fallbackData,
@@ -40,7 +41,7 @@ const LastFM: React.FC<{ fallbackData: LastFMResponseType }> = ({
         </p>
       </div>
       <div className={`${styles.root} ${styles['track-count']}`}>
-        <Icon path={mdiFinance} size={1} />
+        <Icon path={mdiFinance} size={1} style={{ color }} />
         <p>
           <strong>
             {Intl.NumberFormat('nl-NL').format(data?.overall.play_count ?? 0)}
