@@ -16,8 +16,8 @@ export const metadata = {
 }
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => (
-  <html lang="en" className={roboto.className}>
-    <body>
+  <html lang="en">
+    <body className={roboto.className}>
       <div className={styles.main}>
         <div className={styles.content}>{children}</div>
       </div>
