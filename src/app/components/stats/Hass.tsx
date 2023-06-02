@@ -17,11 +17,11 @@ const Hass: React.FC<{ fallbackData: HassResponseType }> = ({
     refreshInterval: 30000,
   })
 
-  return data.steps > 2500 ? (
+  return (data?.steps ?? 0) > 2500 ? (
     <div className={styles.root}>
-      <Icon path={mdiShoePrint} size={1} style={{ color: data.color }} />
+      <Icon path={mdiShoePrint} size={1} style={{ color: data!.color }} />
       <p>
-        <strong>{Intl.NumberFormat('nl-NL').format(data?.steps ?? 0)}</strong>{' '}
+        <strong>{Intl.NumberFormat('nl-NL').format(data!.steps ?? 0)}</strong>{' '}
         steps taken today
       </p>
     </div>
