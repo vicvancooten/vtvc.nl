@@ -2,8 +2,8 @@ import { cache } from 'react'
 import { fetchUrl } from './fetcher'
 
 export interface HassResponseType {
-  steps: number
-  color: string
+  steps?: number
+  color?: string
 }
 
 export const invalidate = 55
@@ -26,7 +26,7 @@ export const getHassData: () => Promise<HassResponseType> = cache(async () => {
 
   // Structure & return
   return {
-    steps: +steps.state,
-    color: color.state,
+    steps: +steps.state ?? 0,
+    color: color.state ?? '#79ffe1',
   } as HassResponseType
 })
