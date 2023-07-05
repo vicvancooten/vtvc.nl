@@ -93,7 +93,7 @@ export default async function Home() {
       <hr style={{ backgroundColor: hassData.color }} />
       <div className={styles['fun-facts']}>
         <Spotify fallbackData={spotifyData} />
-        <LastFM fallbackData={lastfmData} color={hassData.color} />
+        <LastFM fallbackData={lastfmData} color={hassData?.color ?? '#79ffe1'} />
         <Hass fallbackData={hassData} />
       </div>
     </main>
