@@ -58,11 +58,10 @@ const Spotify: React.FC<{ fallbackData: NowPlayingResponse }> = ({
         <a href={artists?.[0]?.url} target="_blank" title={artists?.[0]?.name}>
           <strong>{truncateText(artists?.[0]?.name, 10000)}</strong>
         </a>{' '}
-        (from{' '}
+        from{' '}
         <a href={album?.url} target="_blank" title={album?.name}>
           {truncateText(album?.name, 10000)}
         </a>
-        )
       </p>
     </div>
   )
