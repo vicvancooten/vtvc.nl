@@ -10,14 +10,14 @@ export const invalidate = 55
 
 export const getHassData: () => Promise<HassResponseType> = cache(async () => {
   const color = await fetchUrl(
-    `${process.env.HASS_DOMAIN}/api/states/sensor.pixel_6a_accent_color`,
+    `${process.env.HASS_DOMAIN}/api/states/sensor.vixel_accent_color_2`,
     {
       Authorization: `Bearer ${process.env.HASS_KEY}`,
       'content-type': 'application/json',
     }
   )
   const steps = await fetchUrl(
-    `${process.env.HASS_DOMAIN}/api/states/sensor.pixel_6a_steps_sensor`,
+    `${process.env.HASS_DOMAIN}/api/states/sensor.vixel_steps_sensor_2`,
     {
       Authorization: `Bearer ${process.env.HASS_KEY}`,
       'content-type': 'application/json',
