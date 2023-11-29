@@ -32,8 +32,9 @@ export default async function Home() {
       </header>
       <p>
         Hi. I&apos;m <strong style={{ color: hassData.color }}>Vic</strong>, a
-        full-stack software engineer from Utrecht. I use a broad set of skills
-        to make technology and processes work simpler and better.
+        senior full-stack software engineer from Utrecht. I use a broad set of
+        skills to build awesome products and to make technology and processes
+        work simpler and better.
       </p>
       <p>
         I currently work at{' '}
@@ -42,13 +43,10 @@ export default async function Home() {
           title="We provide SaaS benchmarking, strategy and monitoring solutions."
           target="_blank"
           rel="noopener"
+          className={styles.ai}
         >
           {' '}
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 527.44 303.83"
-            className={styles.icon}
-          >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 527.44 303.83">
             <path
               d="M84.5 142.18a10.62 10.62 0 01-7.5-18.13L197.75 3.3a11.27 11.27 0 0115.92 0l47.43 47.42a10.62 10.62 0 01-15.02 15.02l-40.37-40.37L92 139.07a10.58 10.58 0 01-7.5 3.12"
               fill="#f47258"
@@ -60,8 +58,20 @@ export default async function Home() {
           </svg>{' '}
           A-Insights
         </a>{' '}
-        in Amsterdam, where I&apos;m responsible for technically designing and
-        building the customer products.
+        in Amsterdam, where I oversee the development and (technical) design of
+        our SaaS products.
+      </p>
+      <p>
+        Curious about what&apos;s going on behind the scenes on this page?
+        <a
+          href="https://github.com/Duveaux/vtvc.nl"
+          rel="noopener"
+          className={styles.source}
+          target="_blank"
+        >
+          <Icon path={mdiGithub} size={1} />
+          Check out the source.
+        </a>
       </p>
       <p>Want to get in contact?</p>
       <div className={styles.contact}>
@@ -93,7 +103,10 @@ export default async function Home() {
       <hr style={{ backgroundColor: hassData.color }} />
       <div className={styles['fun-facts']}>
         <Spotify fallbackData={spotifyData} />
-        <LastFM fallbackData={lastfmData} color={hassData?.color ?? '#79ffe1'} />
+        <LastFM
+          fallbackData={lastfmData}
+          color={hassData?.color ?? '#79ffe1'}
+        />
         <Hass fallbackData={hassData} />
       </div>
     </main>

@@ -14,9 +14,21 @@
       flex-direction: column;
     }
   }
-  .icon {
-    position: relative;
-    top: 0.25rem;
+  .ai {
+    transition: all 0.3s ease-in-out;
+    svg {
+      position: relative;
+      top: 0.25rem;
+      transition: all 0.3s ease-in-out;
+      filter: grayscale(100%);
+    }
+    &:hover {
+      color: #f47258;
+
+      svg {
+        filter: none;
+      }
+    }
   }
   .contact {
     display: grid;
@@ -71,4 +83,14 @@
       margin: 2rem 0;
     }
   }
+}
+
+.source {
+  display: inline-flex;
+  gap: 0.25rem;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  top: 0.4rem;
+  left: 0.25rem;
 }

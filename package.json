@@ -15,6 +15,7 @@
     "eslint": "8.50.0",
     "eslint-config-next": "13.4.12",
     "next": "^13.4.12",
+    "prettier": "^3.1.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "sass": "^1.68.0",
@@ -23,8 +24,8 @@
     "typescript": "^5.2.2"
   },
   "devDependencies": {
-    "@types/react": "18.2.23",
     "@types/node": "20.8.0",
+    "@types/react": "18.2.23",
     "@types/react-dom": "18.2.6"
   }
 }
