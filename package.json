@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@mdi/js": "^7.2.96",
+    "@mdi/js": "^7.4.47",
     "@mdi/react": "^1.6.1",
     "@vercel/analytics": "^1.0.2",
     "eslint": "8.56.0",
