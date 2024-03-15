@@ -19,9 +19,10 @@ const Hass: React.FC<{ fallbackData: HassResponseType }> = ({
 
   // Once data.color is avaialble (or when it changes), set the theme color
   if (data?.color) {
-    document
-      .querySelector('meta[name="theme-color"]')
-      ?.setAttribute('content', data.color)
+    typeof document !== 'undefined' &&
+      document
+        ?.querySelector('meta[name="theme-color"]')
+        ?.setAttribute('content', data.color)
   }
 
   return (data?.steps ?? 0) > 2500 ? (
