@@ -1,6 +1,7 @@
 import './globals.scss'
 import styles from './layout.module.scss'
 import { Analytics } from '@vercel/analytics/react'
+import type { Viewport } from 'next'
 
 import { Roboto } from 'next/font/google'
 
@@ -13,6 +14,10 @@ const roboto = Roboto({
 export const metadata = {
   title: 'Vic van Cooten',
   description: 'Software engineer from Utrecht',
+}
+
+export const viewport: Viewport = {
+  themeColor: 'black',
 }
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => (
