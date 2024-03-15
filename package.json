@@ -18,14 +18,14 @@
     "prettier": "^3.2.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "sass": "^1.68.0",
+    "sass": "^1.71.1",
     "sharp": "^0.32.6",
     "swr": "^2.2.2",
     "typescript": "^5.3.3"
   },
   "devDependencies": {
     "@types/node": "20.10.1",
-    "@types/react": "18.2.46",
+    "@types/react": "18.2.61",
     "@types/react-dom": "18.2.18"
   }
 }
