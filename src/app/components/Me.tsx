@@ -9,6 +9,8 @@ export default function Me() {
       className="me"
       width={75}
       height={75}
+      placeholder="blur"
+      priority
     />
   )
 }
