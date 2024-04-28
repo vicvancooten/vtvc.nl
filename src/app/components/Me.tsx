@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import me from './Me.png'
+import me from './Me.jpg'
 
 export default function Me() {
   return (

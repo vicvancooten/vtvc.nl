@@ -8,6 +8,8 @@ import useSWR from 'swr'
 import { fetcher } from '@/lib/fetcher'
 
 import { HassResponseType } from '@/lib/hass'
+import { adjustContrast } from '@/lib/color'
+import { useEffect } from 'react'
 
 const Hass: React.FC<{ fallbackData: HassResponseType }> = ({
   fallbackData,
@@ -17,13 +19,13 @@ const Hass: React.FC<{ fallbackData: HassResponseType }> = ({
     refreshInterval: 30000,
   })
 
-  // Once data.color is avaialble (or when it changes), set the theme color
-  if (data?.color) {
-    typeof document !== 'undefined' &&
-      document
-        ?.querySelector('meta[name="theme-color"]')
-        ?.setAttribute('content', data.color)
-  }
+  // Update the accent color based on the data.color, while also increasing the contrast for better readability
+  useEffect(() => {
+    if (data?.color) {
+      const newColor = adjustContrast(data.color, 0.75)
+      document.documentElement.style.setProperty('--accent-color', newColor)
+    }
+  }, [data])
 
   return (data?.steps ?? 0) > 2500 ? (
     <div className={styles.root}>

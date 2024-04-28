@@ -1,6 +1,17 @@
-$background: #fafafa;
-$text: #717b85;
-$text-hover: #111;
+:root {
+  --accent-color: red;
+  --background: #f1eeec;
+  --text: #717b85;
+  --text-hover: #111;
+
+  // Set variables for dark mode
+  @media (prefers-color-scheme: dark) {
+    --accent-color: #007bff;
+    --background: #333;
+    --text: #bbb;
+    --text-hover: white;
+  }
+}
 
 html,
 body {
@@ -10,39 +21,44 @@ body {
   margin: 0;
   padding: 0;
   height: 100vh;
-  color: $text;
-  background-color: $background;
+  color: var(--text);
+  background-color: var(--background);
   line-height: 1.7142857143;
   letter-spacing: 0.0125rem;
-  @media (prefers-color-scheme: dark) {
-    color: #bbb;
-    background-color: #333;
-  }
 }
 
 a {
-  color: inherit;
+  color: var(--accent-color);
   text-decoration: none;
   transition: all 0.3s ease-in-out;
   &:hover {
-    color: $text-hover;
+    color: var(--text-hover);
     @media (prefers-color-scheme: dark) {
       color: white;
     }
   }
 }
-p,
-h1 {
+p {
   cursor: default;
+}
+h1 {
+  color: var(--accent-color);
+  cursor: default;
+  transition: color 0.3s ease;
 }
 
 hr {
   height: 0.0625rem;
-  background-color: $text;
+  background-color: var(--accent-color);
   border: none;
+  transition: color 0.3s ease;
+}
+a {
+  cursor: pointer;
+  text-decoration: none;
 }
 
-a,
 strong {
   color: var(--accent-color);
+  transition: color 0.3s ease;
 }

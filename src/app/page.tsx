@@ -9,6 +9,9 @@ import Spotify from '@/app/components/stats/Spotify'
 import Hass from '@/app/components/stats/Hass'
 import Me from '@/app/components/Me'
 
+import Image from 'next/image'
+import U from './u.svg'
+
 import Icon from '@mdi/react'
 import {
   mdiLinkedin,
@@ -31,10 +34,21 @@ export default async function Home() {
         <h1>Vic van Cooten</h1>
       </header>
       <p>
-        Hi. I&apos;m <strong style={{ color: hassData.color }}>Vic</strong>, a
-        senior full-stack software engineer from Utrecht. I use a broad set of
-        skills to build awesome products and to make technology and processes
-        work simpler and better.
+        Hi. I&apos;m <strong>Vic</strong>, a senior full-stack software engineer
+        from{' '}
+        <strong>
+          {' '}
+          <Image
+            src={U}
+            width={18}
+            height={18}
+            alt="Utrecht"
+            className={styles.inlineIcon}
+          />
+          Utrecht
+        </strong>
+        . I use a broad set of skills to build awesome products and to make
+        technology and processes work simpler and better.
       </p>
       <p>
         I currently work at{' '}
@@ -58,11 +72,12 @@ export default async function Home() {
           </svg>{' '}
           A-Insights
         </a>{' '}
-        in Amsterdam, where I oversee the development and (technical) design of
-        our SaaS products.
+        in Amsterdam, where I am responsible for the software engineering team
+        and the architecture of our products.
       </p>
       <p>
-        Curious about what&apos;s going on behind the scenes on this page?
+        Curious about what&apos;s going on behind the scenes on this totally
+        overengineered page?
         <a
           href="https://github.com/Duveaux/vtvc.nl"
           rel="noopener"
@@ -100,7 +115,7 @@ export default async function Home() {
           <Icon path={mdiMastodon} size={1} />
         </a>
       </div>
-      <hr style={{ backgroundColor: hassData.color }} />
+      <hr />
       <div className={styles['fun-facts']}>
         <Spotify fallbackData={spotifyData} />
         <LastFM
