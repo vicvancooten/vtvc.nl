@@ -32,6 +32,12 @@ export default async function Home() {
       <header>
         <Me />
         <h1>Vic van Cooten</h1>
+        <style>{`
+          :global(body) {
+            --accent-color: ${hassData.color};
+          }
+        `}</style>
+        <meta name="theme-color" content={hassData.color} />
       </header>
       <p>
         Hi. I&apos;m <strong>Vic</strong>, a senior full-stack software engineer

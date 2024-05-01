@@ -1,12 +1,10 @@
 :root {
-  --accent-color: red;
   --background: #f1eeec;
   --text: #717b85;
   --text-hover: #111;
 
   // Set variables for dark mode
   @media (prefers-color-scheme: dark) {
-    --accent-color: #007bff;
     --background: #333;
     --text: #bbb;
     --text-hover: white;
