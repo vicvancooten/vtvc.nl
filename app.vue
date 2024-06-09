@@ -80,8 +80,8 @@ const steps = data.value?.steps ?? 0;
 // Create a color palette based on the primary color
 const color = chroma(primaryColor);
 // Find a constrasting color for the background
-const backgroundColor = color.darken(1.5).desaturate(1.5).luminance();
-const textColor = color.brighten(3.5).desaturate(1.5).luminance();
+const backgroundColor = color.darken(1.5).desaturate(1.5).hex();
+const textColor = color.brighten(3.5).desaturate(1.5).hex();
 const accentColor = color.hex();
 
 // Now use useHead to set the --primary-color variable globally
