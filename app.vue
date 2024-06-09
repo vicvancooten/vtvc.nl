@@ -2,13 +2,15 @@
   <div class="page">
     <div class="center">
       <header>
+        <h1>Vic van Cooten</h1>
         <NuxtImg
           src="/me.jpg"
-          :width="200"
-          :height="200"
+          :width="100"
+          :height="100"
           :placeholder="[50, 25, 75, 5]"
+          class="rounded"
+          alt="Vic van Cooten"
         />
-        <h1>Vic van Cooten</h1>
       </header>
       <main>
         <p>
@@ -113,12 +115,22 @@ body {
     max-width: 40rem;
 
     header {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-end;
+
+      .rounded {
+        border-radius: 50%;
+        margin-bottom: 1rem;
+      }
+
       h1 {
         font-family: "Nunito", sans-serif;
         font-size: 3rem;
         margin: 0;
         padding: 0;
         cursor: default;
+        flex: 1;
       }
     }
 
