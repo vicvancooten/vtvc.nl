@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
   $production: {
     routeRules: {
-      '/**': { swr: 15 }
+      '/**': { isr: 60 }
     }
   },
 
