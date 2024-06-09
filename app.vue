@@ -5,8 +5,8 @@
         <h1>Vic van Cooten</h1>
         <NuxtImg
           src="/me.jpg"
-          :width="100"
-          :height="100"
+          :width="60"
+          :height="60"
           :placeholder="[50, 25, 75, 5]"
           class="rounded"
           alt="Vic van Cooten"
@@ -54,6 +54,15 @@
             Check out the source.
           </a>
         </p>
+
+        <hr />
+        <strong>Debug stats</strong>
+        <ul>
+          <strong>Steps:</strong>
+          {{
+            steps
+          }}
+        </ul>
       </main>
     </div>
   </div>
@@ -70,14 +79,9 @@ const steps = data.value?.steps ?? 0;
 
 // Create a color palette based on the primary color
 const color = chroma(primaryColor);
-// Background color needs to be a soft, subtle, darkened version of the primary color
-const backgroundColor = color.darken(1.25).saturate(0.1).hex();
-// Text color needs to be a contrasting color to the primary color, but still be based on it
-const textColor =
-  color.luminance() > 0.5 ? color.darken(4).hex() : color.brighten(4).hex();
-// Accent color needs to be a contrasting color to the primary color
-const accentColor =
-  color.luminance() > 0.5 ? color.darken(1.5).hex() : color.brighten(1.5).hex();
+const backgroundColor = color.brighten(2).desaturate(1.5).hex();
+const textColor = color.brighten(3.5).desaturate(1.5).luminance();
+const accentColor = color.hex();
 
 // Now use useHead to set the --primary-color variable globally
 useHead({
@@ -98,7 +102,8 @@ html,
 body {
   margin: 0;
   padding: 0;
-  font-family: Roboto, sans-serif;
+  font-family: "Quicksand", sans-serif;
+  font-weight: 300;
 }
 
 .page {
@@ -117,7 +122,7 @@ body {
     header {
       display: flex;
       flex-direction: row;
-      align-items: flex-end;
+      align-items: center;
 
       .rounded {
         border-radius: 50%;
@@ -125,12 +130,13 @@ body {
       }
 
       h1 {
-        font-family: "Nunito", sans-serif;
+        font-weight: 600;
         font-size: 3rem;
         margin: 0;
         padding: 0;
         cursor: default;
         flex: 1;
+        color: var(--accent-color);
       }
     }
 
@@ -151,6 +157,16 @@ body {
           max-width: 1rem;
           max-height: 1rem;
         }
+      }
+
+      hr {
+        margin: 2rem 0;
+        border: 0;
+        border-top: 1px solid var(--accent-color);
+      }
+
+      ul {
+        color: var(--accent-color);
       }
     }
   }
