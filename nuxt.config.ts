@@ -5,5 +5,7 @@ export default defineNuxtConfig({
       '/**': { swr: 15 }
     }
   },
-  devtools: { enabled: true }
+
+  devtools: { enabled: true },
+  modules: ['@nuxt/fonts', '@nuxt/image']
 })
