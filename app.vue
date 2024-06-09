@@ -79,12 +79,21 @@ const steps = data.value?.steps ?? 0;
 
 // Create a color palette based on the primary color
 const color = chroma(primaryColor);
-const backgroundColor = color.brighten(2).desaturate(1.5).hex();
+// Find a constrasting color for the background
+const backgroundColor = color.darken(1.5).desaturate(1.5).luminance();
 const textColor = color.brighten(3.5).desaturate(1.5).luminance();
 const accentColor = color.hex();
 
 // Now use useHead to set the --primary-color variable globally
 useHead({
+  // Set the accent color to the theme color
+  meta: [
+    {
+      name: "theme-color",
+      content: accentColor,
+    },
+  ],
+  // Set the primary color as a CSS variable
   style: [
     {
       innerHTML: `:root { 
@@ -114,6 +123,13 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+
+  // Add mobile layout
+  @media (max-width: 768px) {
+    padding: 2.5rem;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
 
   .center {
     width: 100%;
