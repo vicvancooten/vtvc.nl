@@ -21,9 +21,6 @@ useHead({
 </script>
 
 <style lang="scss">
-:root {
-  --primary-color: #000;
-}
 body {
   margin: 0;
   padding: 0;
