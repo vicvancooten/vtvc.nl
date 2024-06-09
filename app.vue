@@ -30,10 +30,9 @@
           architecture of our products.
         </p>
         <p>
-          Curious about what&apos;s going on behind the scenes on this totally
-          overengineered page?
+          This page contains some unneccessary engineering, curious?
           <a href="https://github.com/Duveaux/vtvc.nl" rel="noopener" className="{styles.source}" target="_blank">
-            Check out the source.
+            Check it out here.
           </a>
         </p>
 
@@ -50,13 +49,25 @@
 
           </div>
 
-          <!-- Steps -->
+          <!-- Lifetime plays -->
           <div class="fact">
+            <div class="label">Lifetime track plays</div>
+            <Icon name="fa-solid:record-vinyl" />
+            <div class="value">{{ Intl.NumberFormat('nl-NL').format(lastfmData?.overall.play_count) }} plays</div>
+          </div>
+
+          <!-- Lifetime unique artists -->
+          <div class="fact">
+            <div class="label">Lifetime unique artists</div>
+            <Icon name="mdi:artist" />
+            <div class="value">{{ Intl.NumberFormat('nl-NL').format(lastfmData?.overall.artist_count) }} artists</div>
+          </div>
+
+          <!-- Steps -->
+          <div class="fact" v-if="steps > 1000">
             <div class="label">Steps today</div>
             <Icon name="ion:footsteps" />
-            <div>
-              <div class="value">{{ steps }}</div>
-            </div>
+            <div class="value">{{ Intl.NumberFormat('nl-NL').format(steps) }} steps</div>
           </div>
         </div>
       </main>
@@ -131,7 +142,7 @@ body {
 
   .center {
     width: 100%;
-    max-width: 40rem;
+    max-width: 50rem;
 
     header {
       display: flex;
@@ -192,7 +203,7 @@ body {
 
       .facts-grid {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr;
         gap: 1rem;
         margin: 2rem 0;
 
