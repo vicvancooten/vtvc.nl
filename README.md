@@ -1,75 +1,10 @@
-# Nuxt 3 Minimal Starter
+# Personal website
+Located at [vtvc.nl](https://vtvc.nl), this website is partially a visiting card, but moreover a technical experiment on how to balance speed and freshness of data. 
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+## Data sources
+It fetches data from API's such as Spotify, Last.fm, as well as a local home assistant instance. By utilising caching techniques such as SWR and ISR we can create a site that loads (near) realtime data, while also achieving top marks in speed.
 
-## Setup
+## One hunnid
+We go for nothing less than one hunnid.
 
-Make sure to install the dependencies:
-
-```bash
-# npm
-npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+![We go for nothing less.](readme-image.png)
