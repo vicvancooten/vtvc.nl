@@ -7,5 +7,5 @@ export default defineNuxtConfig({
   },
 
   devtools: { enabled: true },
-  modules: ['@nuxt/fonts', '@nuxt/image']
+  modules: ['@nuxt/fonts', '@nuxt/image', 'nuxt-icon']
 })

@@ -3,39 +3,26 @@
     <div class="center">
       <header>
         <h1>Vic van Cooten</h1>
-        <NuxtImg
-          src="/me.jpg"
-          :width="60"
-          :height="60"
-          :placeholder="[50, 25, 75, 5]"
-          class="rounded"
-          alt="Vic van Cooten"
-        />
+        <NuxtImg src="/me.jpg" :width="80" :height="80" :placeholder="[50, 25, 75, 5]" class="rounded"
+          alt="Vic van Cooten" />
       </header>
       <main>
         <p>
           Hi. I&apos;m <strong>Vic</strong>, a senior full-stack software engineer
-          from<strong> Utrecht </strong>. I use a broad set of skills to build awesome
+          working from<strong> Utrecht </strong>. I use a broad set of skills to build awesome
           products and to make technology and processes work simpler and better.
         </p>
         <p>
           I currently work at
-          <a
-            href="https://a-insights.eu"
-            title="We provide SaaS benchmarking, strategy and monitoring solutions."
-            target="_blank"
-            rel="noopener"
-            className="{styles.ai}"
-          >
+          <a href="https://a-insights.eu" title="We provide SaaS benchmarking, strategy and monitoring solutions."
+            target="_blank" rel="noopener" className="{styles.ai}">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 527.44 303.83">
               <path
                 d="M84.5 142.18a10.62 10.62 0 01-7.5-18.13L197.75 3.3a11.27 11.27 0 0115.92 0l47.43 47.42a10.62 10.62 0 01-15.02 15.02l-40.37-40.37L92 139.07a10.58 10.58 0 01-7.5 3.12"
-                fill="#f47258"
-              ></path>
+                fill="#f47258"></path>
               <path
                 d="M446.35 1.04a10.62 10.62 0 017.5 18.12L334.7 138.33a11.27 11.27 0 01-15.92 0l-46.6-46.6a10.62 10.62 0 1115.01-15.02l39.55 39.55L438.84 4.15c2.08-2.08 4.8-3.11 7.51-3.11"
-                fill="#00128a"
-              ></path>
+                fill="#00128a"></path>
             </svg>
             A-Insights
           </a>
@@ -45,24 +32,33 @@
         <p>
           Curious about what&apos;s going on behind the scenes on this totally
           overengineered page?
-          <a
-            href="https://github.com/Duveaux/vtvc.nl"
-            rel="noopener"
-            className="{styles.source}"
-            target="_blank"
-          >
+          <a href="https://github.com/Duveaux/vtvc.nl" rel="noopener" className="{styles.source}" target="_blank">
             Check out the source.
           </a>
         </p>
 
         <hr />
-        <strong>Debug stats</strong>
-        <ul>
-          <strong>Steps:</strong>
-          {{
-            steps
-          }}
-        </ul>
+
+        <div class="facts-grid">
+          <!-- Last.fm -->
+          <div class="fact">
+            <div class="label">Album of the Week</div>
+            <NuxtImg class="rounded" :width="40" :height="40" :src="lastfmData?.weekly.image" />
+            <div class="value">{{ lastfmData?.weekly.name }} by
+              {{ lastfmData?.weekly.artist }}
+            </div>
+
+          </div>
+
+          <!-- Steps -->
+          <div class="fact">
+            <div class="label">Steps today</div>
+            <Icon name="ion:footsteps" />
+            <div>
+              <div class="value">{{ steps }}</div>
+            </div>
+          </div>
+        </div>
       </main>
     </div>
   </div>
@@ -79,13 +75,17 @@ const steps = data.value?.steps ?? 0;
 
 // Create a color palette based on the primary color
 const color = chroma(primaryColor);
-// Find a constrasting color for the background
-const backgroundColor = color.darken(1.5).desaturate(1.5).hex();
-const textColor = color.brighten(3.5).desaturate(1.5).hex();
-const accentColor = color.hex();
+const backgroundColor = color.darken(1.75).desaturate(1.5).hex();
+const textColor = color.brighten(2.5).desaturate(1.5).hex();
+const accentColor = color.brighten(3).saturate(0.5).hex();
+const accentColorLight = color.brighten(3).saturate(0.5).alpha(0.5).hex();
+
+// Fetch lastfm data
+const { data: lastfmData } = await useFetch("/api/lastfm");
 
 // Now use useHead to set the --primary-color variable globally
 useHead({
+  title: 'Vic van Cooten',
   // Set the accent color to the theme color
   meta: [
     {
@@ -100,6 +100,7 @@ useHead({
         --background-color: ${backgroundColor}; 
         --text-color: ${textColor}; 
         --accent-color: ${accentColor}; 
+        --accent-color-light: ${accentColorLight};
       }`,
     },
   ],
@@ -115,6 +116,10 @@ body {
   font-weight: 300;
 }
 
+.rounded {
+  border-radius: 50%;
+}
+
 .page {
   background-color: var(--background-color);
   color: var(--text-color);
@@ -123,13 +128,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-
-  // Add mobile layout
-  @media (max-width: 768px) {
-    padding: 2.5rem;
-    justify-content: flex-start;
-    align-items: flex-start;
-  }
 
   .center {
     width: 100%;
@@ -140,14 +138,14 @@ body {
       flex-direction: row;
       align-items: center;
 
+
       .rounded {
-        border-radius: 50%;
         margin-bottom: 1rem;
       }
 
       h1 {
-        font-weight: 600;
-        font-size: 3rem;
+        font-weight: 400;
+        font-size: 3.5rem;
         margin: 0;
         padding: 0;
         cursor: default;
@@ -168,6 +166,12 @@ body {
       a {
         color: var(--accent-color);
         text-decoration: none;
+        transition: all 0.3s ease;
+        cursor: pointer;
+
+        &:hover {
+          color: var(--text-color);
+        }
 
         svg {
           max-width: 1rem;
@@ -179,12 +183,74 @@ body {
         margin: 2rem 0;
         border: 0;
         border-top: 1px solid var(--accent-color);
+        opacity: 0.2;
       }
 
-      ul {
+      strong {
         color: var(--accent-color);
+      }
+
+      .facts-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        margin: 2rem 0;
+
+        .fact {
+          border: 1px solid var(--accent-color-light);
+          color: var(--accent-color);
+          padding: 1rem;
+          border-radius: 0.5rem;
+          text-align: center;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          gap: .75rem;
+          transition: all 0.3s ease;
+
+          .label {
+            font-size: 1.25rem;
+            font-weight: 500;
+          }
+
+          svg {
+            width: 2rem;
+            height: 2rem;
+          }
+
+          img {
+            width: 3rem;
+            height: 3rem;
+
+          }
+
+          &:hover {
+            background-color: var(--accent-color-light);
+            color: var(--background-color);
+          }
+
+        }
+
+        @media (max-width: 768px) {
+          grid-template-columns: 1fr 1fr;
+        }
       }
     }
   }
+
+  @media (max-width: 768px) {
+    padding: 1.5rem;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    .center {
+      header {
+        flex-direction: column-reverse;
+      }
+    }
+
+  }
+
 }
 </style>
