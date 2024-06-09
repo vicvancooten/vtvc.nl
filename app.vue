@@ -10,8 +10,14 @@ const { data } = await useFetch("/api/hass");
 
 primaryColor = data.value?.color ?? primaryColor;
 
-// Set the CSS variable supporting SSR
-document?.documentElement?.style?.setProperty?.("--primary-color", primaryColor);
+// Now use useHead to set the --primary-color variable globally
+useHead({
+  style: [
+    {
+      innerHTML: `:root { --primary-color: ${primaryColor}; }`,
+    },
+  ],
+});
 </script>
 
 <style lang="scss">
