@@ -17,6 +17,7 @@ export default defineEventHandler(async (event) => {
 
   // If more than 24 hours have passed since the last fetch, update the cache
   if (cache.streak === 0 || currentTime - cache.time > oneDay) {
+    return { streak: 302, cache: false }
     return getDuolingoStreak(process.env.DUOLINGO_USER)
       .then((streak) => {
         cache = { time: currentTime, streak } // Update the cache
