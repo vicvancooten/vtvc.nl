@@ -1,4 +1,5 @@
 import puppeteer from 'puppeteer'
+import chromium from 'chrome-aws-lambda'
 
 let cache = {
   time: Date.now(),
@@ -14,7 +15,7 @@ export default defineEventHandler(async (event) => {
   }
 
   // If more than 24 hours have passed since the last fetch, update the cache
-  if (!cache.streak || currentTime - cache.time > oneDay) {
+  if (cache.streak === 0 || currentTime - cache.time > oneDay) {
     return getDuolingoStreak(process.env.DUOLINGO_USER)
       .then((streak) => {
         cache = { time: currentTime, streak } // Update the cache
@@ -30,7 +31,13 @@ export default defineEventHandler(async (event) => {
 })
 
 async function getDuolingoStreak(username: string) {
-  const browser = await puppeteer.launch()
+  const browser = await puppeteer.launch({
+    args: chromium.args,
+    defaultViewport: chromium.defaultViewport,
+    executablePath: await chromium.executablePath,
+    headless: chromium.headless,
+  })
+
   const page = await browser.newPage()
   await page.goto(`https://www.duolingo.com/profile/${username}`)
 
