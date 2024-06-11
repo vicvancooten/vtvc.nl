@@ -58,68 +58,71 @@
           .
         </p>
 
-        <hr />
-
         <div class="facts-grid">
-          <!-- Last.fm -->
+          <!-- Album of the Week -->
           <div class="fact">
-            <div class="label">
-              <NuxtImg
-                class="rounded"
-                :width="45"
-                :height="45"
-                :src="lastfmData?.weekly.image"
-              />
-              Album of the Week
-            </div>
+            <header>
+              <Icon name="ph:vinyl-record-thin" />
+              Album of the week
+            </header>
             <div class="value">
-              {{ lastfmData?.weekly.name }} by
-              {{ lastfmData?.weekly.artist }}
+              <strong>{{ lastfmData?.weekly.name }}</strong>
+              by
+              <strong>{{ lastfmData?.weekly.artist }}</strong>
             </div>
           </div>
 
-          <!-- Lifetime plays -->
+          <!-- Lifetime music stats -->
           <div class="fact">
-            <div class="label">
-              <Icon name="fa-solid:record-vinyl" />
-              Music stats
+            <header>
+              <Icon name="ion:trending-up-outline" />
+              Lifetime music stats
+            </header>
+            <div class="value">
+              <ul>
+                <li>
+                  <strong>
+                    {{
+                      Intl.NumberFormat('nl-NL').format(
+                        lastfmData?.overall.play_count,
+                      )
+                    }}
+                  </strong>
+                  plays
+                </li>
+                <li>
+                  <strong>
+                    {{
+                      Intl.NumberFormat('nl-NL').format(
+                        lastfmData?.overall.album_count,
+                      )
+                    }}
+                  </strong>
+                  albums
+                </li>
+                <li>
+                  <strong>
+                    {{
+                      Intl.NumberFormat('nl-NL').format(
+                        lastfmData?.overall.artist_count,
+                      )
+                    }}
+                  </strong>
+                  artists
+                </li>
+              </ul>
             </div>
-            <ul class="value">
-              <li>
-                {{
-                  Intl.NumberFormat('nl-NL').format(
-                    lastfmData?.overall.play_count,
-                  )
-                }}
-                plays
-              </li>
-              <li>
-                {{
-                  Intl.NumberFormat('nl-NL').format(
-                    lastfmData?.overall.album_count,
-                  )
-                }}
-                albums
-              </li>
-              <li>
-                {{
-                  Intl.NumberFormat('nl-NL').format(
-                    lastfmData?.overall.artist_count,
-                  )
-                }}
-                artists
-              </li>
-            </ul>
           </div>
 
           <!-- Steps -->
-          <div class="fact" v-if="steps > 1000">
-            <div class="label">
-              <Icon name="ion:footsteps" />
+          <div class="fact">
+            <header>
+              <Icon name="fa-solid:shoe-prints" />
               Steps today
-            </div>
+            </header>
             <div class="value">
-              {{ Intl.NumberFormat('nl-NL').format(steps) }} steps
+              <strong>{{ Intl.NumberFormat('nl-NL').format(steps) }}</strong>
+              steps
             </div>
           </div>
         </div>
@@ -214,7 +217,7 @@ body {
 
   .center {
     width: 100%;
-    max-width: 50rem;
+    max-width: 55rem;
 
     header {
       display: flex;
@@ -264,12 +267,6 @@ body {
         }
       }
 
-      hr {
-        margin: 2rem 0;
-        border: 0;
-        border-top: 1px solid var(--accent-color-light);
-      }
-
       strong {
         color: var(--accent-color);
         font-weight: 600;
@@ -277,41 +274,52 @@ body {
 
       .facts-grid {
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: repeat(auto-fit, 15rem);
         gap: 1rem;
         margin: 2rem 0;
+        align-content: normal;
+        justify-content: center;
+        align-items: start;
+        justify-items: center;
 
         .fact {
-          border: 1px solid var(--accent-color-light);
-          color: var(--text-color);
-          border-radius: 0.5rem;
-          transition: all 0.3s ease;
-          padding: 1rem;
-          font-size: 1rem;
-
-          .label {
-            font-size: 1.25rem;
-            font-weight: 500;
+          header {
+            padding: 1rem;
+            border-bottom: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            font-weight: 600;
+            text-transform: uppercase;
             display: flex;
+            justify-content: center;
             align-items: center;
             gap: 0.5rem;
-          }
 
-          ul {
-            list-style: none;
-            padding: 0;
-            margin: 0.25rem 0 0 0;
+            .icon {
+              width: 1.5rem;
+              height: 1.5rem;
+            }
           }
 
           .value {
-            font-size: 1.1rem;
-            font-weight: 300;
-            margin-top: 0.5rem;
-          }
+            padding: 1rem;
+            border-bottom: 1px solid var(--accent-color);
+            color: var(--text-color);
+            text-align: center;
+            font-size: 1.05rem;
 
-          &:hover {
-            background-color: var(--accent-color-light);
-            color: var(--background-color);
+            strong {
+              color: var(--accent-color);
+            }
+
+            ul {
+              list-style: none;
+              padding: 0;
+              margin: 0;
+
+              li {
+                margin: 0.5rem 0;
+              }
+            }
           }
         }
 
