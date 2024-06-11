@@ -1,137 +1,95 @@
 <template>
   <div class="page">
     <div class="center">
-      <header class="main">
-        <h1>Vic van Cooten</h1>
-        <NuxtImg
-          src="/me.jpg"
-          :width="80"
-          :height="80"
-          :placeholder="[50, 25, 75, 5]"
-          class="rounded"
-          alt="Vic van Cooten"
-        />
-      </header>
-      <main>
-        <p>
-          Hi. I&apos;m
-          <strong>Vic</strong>
-          , a senior full-stack software engineer working from
-          <strong>Utrecht</strong>
-          . I use a broad set of skills to build awesome products and to make
-          technology and processes work simpler and better.
-        </p>
-        <p>
-          I currently work at
-          <a
-            href="https://a-insights.eu"
-            title="We provide SaaS benchmarking, strategy and monitoring solutions."
-            target="_blank"
-            rel="noopener"
-            class="ai"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 527.44 303.83">
-              <path
-                d="M84.5 142.18a10.62 10.62 0 01-7.5-18.13L197.75 3.3a11.27 11.27 0 0115.92 0l47.43 47.42a10.62 10.62 0 01-15.02 15.02l-40.37-40.37L92 139.07a10.58 10.58 0 01-7.5 3.12"
-                fill="#f47258"
-              ></path>
-              <path
-                d="M446.35 1.04a10.62 10.62 0 017.5 18.12L334.7 138.33a11.27 11.27 0 01-15.92 0l-46.6-46.6a10.62 10.62 0 1115.01-15.02l39.55 39.55L438.84 4.15c2.08-2.08 4.8-3.11 7.51-3.11"
-                fill="#00128a"
-              ></path>
-            </svg>
-            A-Insights
-          </a>
-          in Amsterdam, where I am responsible for the software engineering team
-          and the architecture of our SaaS-products.
-        </p>
-        <p>
-          This page is as much a playground as it is a visiting card. Curious?
-          <a
-            href="https://github.com/Duveaux/vtvc.nl"
-            rel="noopener"
-            className="{styles.source}"
-            target="_blank"
-          >
-            Check it out here
-          </a>
-          .
-        </p>
+      <!-- Name & Header -->
+      <Header />
 
-        <div class="facts-grid">
-          <!-- Album of the Week -->
-          <div class="fact">
-            <header>
-              <Icon name="ph:vinyl-record-thin" />
-              Album of the week
-            </header>
+      <!-- Body copy -->
+      <Copy />
+
+      <!-- Spotify -->
+      <Spotify />
+
+      <!-- Facts grid -->
+      <div class="facts-grid">
+        <!-- Album of the Week -->
+        <div class="fact aotw">
+          <header>
+            <Icon name="ph:vinyl-record-thin" />
+            Album of the week
+          </header>
+          <div
+            class="value"
+            :style="{ backgroundImage: `url('${albumOfTheWeekImage}')` }"
+          >
             <div
-              class="value aotw"
-              :style="{ backgroundImage: `url('${albumOfTheWeekImage}')` }"
+              :style="{
+                backgroundColor: `rgba(${is_day ? 255 : 0},${is_day ? 255 : 0},${is_day ? 255 : 0},0.5)`,
+              }"
             >
-              <div>
-                <strong>{{ lastfmData?.weekly.name }}</strong>
-                by
-                <strong>{{ lastfmData?.weekly.artist }}</strong>
-              </div>
+              <strong>{{ lastfmData?.weekly.name }}</strong>
+              by
+              <strong>{{ lastfmData?.weekly.artist }}</strong>
             </div>
           </div>
+        </div>
 
-          <!-- Lifetime music stats -->
-          <div class="fact">
-            <header>
-              <Icon name="ion:trending-up-outline" />
-              Lifetime music stats
-            </header>
-            <div class="value">
-              <ul>
-                <li>
-                  <strong>
-                    {{
-                      Intl.NumberFormat('nl-NL').format(
-                        lastfmData?.overall.play_count,
-                      )
-                    }}
-                  </strong>
-                  plays
-                </li>
-                <li>
-                  <strong>
-                    {{
-                      Intl.NumberFormat('nl-NL').format(
-                        lastfmData?.overall.album_count,
-                      )
-                    }}
-                  </strong>
-                  albums
-                </li>
-                <li>
-                  <strong>
-                    {{
-                      Intl.NumberFormat('nl-NL').format(
-                        lastfmData?.overall.artist_count,
-                      )
-                    }}
-                  </strong>
-                  artists
-                </li>
-              </ul>
-            </div>
+        <!-- Lifetime music stats -->
+        <div class="fact">
+          <header>
+            <Icon name="ion:trending-up-outline" />
+            Lifetime music stats
+          </header>
+          <div class="value">
+            <ul>
+              <li>
+                <strong>
+                  {{
+                    Intl.NumberFormat('nl-NL').format(
+                      lastfmData?.overall.play_count,
+                    )
+                  }}
+                </strong>
+                plays
+              </li>
+              <li>
+                <strong>
+                  {{
+                    Intl.NumberFormat('nl-NL').format(
+                      lastfmData?.overall.album_count,
+                    )
+                  }}
+                </strong>
+                albums
+              </li>
+              <li>
+                <strong>
+                  {{
+                    Intl.NumberFormat('nl-NL').format(
+                      lastfmData?.overall.artist_count,
+                    )
+                  }}
+                </strong>
+                artists
+              </li>
+            </ul>
           </div>
+        </div>
 
-          <!-- Steps -->
-          <div class="fact">
-            <header>
-              <Icon name="fa-solid:shoe-prints" />
-              Steps today
-            </header>
-            <div class="value">
+        <!-- Steps -->
+        <div class="fact">
+          <header>
+            <Icon name="fa-solid:shoe-prints" />
+            Steps today
+          </header>
+          <div class="value">
+            <div>
               <strong>{{ Intl.NumberFormat('nl-NL').format(steps) }}</strong>
               steps
             </div>
           </div>
         </div>
-      </main>
+      </div>
     </div>
   </div>
 </template>
@@ -217,6 +175,19 @@ body,
   color: var(--text-color);
 }
 
+a {
+  color: var(--accent-color);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  font-weight: 300;
+
+  &:hover {
+    color: var(--accent-color-light);
+    text-decoration: underline;
+  }
+}
+
 .rounded {
   border-radius: 50%;
 }
@@ -236,158 +207,113 @@ body,
     width: 100%;
     max-width: 55rem;
 
-    header.main {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
+    cursor: default;
 
-      .rounded {
-        margin-bottom: 1rem;
-      }
+    .facts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, 15rem);
+      gap: 1rem;
+      margin: 2rem 0;
+      align-content: normal;
+      justify-content: center;
+      align-items: start;
+      justify-items: stretch;
 
-      h1 {
-        font-weight: 400;
-        font-size: 3.5rem;
-        margin: 0;
-        padding: 0;
-        cursor: default;
-        flex: 1;
-        color: var(--accent-color);
-        text-align: center;
-      }
-    }
+      .fact {
+        header {
+          padding: 1rem;
+          border-bottom: 1px solid var(--accent-color);
+          color: var(--accent-color);
+          font-weight: 600;
+          text-transform: uppercase;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 0.5rem;
 
-    main {
-      cursor: default;
-
-      p {
-        font-size: 1.25rem;
-        line-height: 1.5;
-        margin: 1rem 0;
-      }
-
-      a {
-        color: var(--accent-color);
-        text-decoration: none;
-        transition: all 0.3s ease;
-        cursor: pointer;
-        font-weight: 300;
-
-        &:hover {
-          color: var(--accent-color-light);
-          text-decoration: underline;
+          .icon {
+            width: 1.5rem;
+            height: 1.5rem;
+          }
         }
 
-        svg {
-          max-width: 1rem;
-          max-height: 1rem;
+        .value {
+          padding: 1rem;
+          border-bottom: 1px solid var(--accent-color);
+          color: var(--text-color);
+          text-align: center;
+          font-size: 1.05rem;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 0.5rem;
+
+          strong {
+            color: var(--accent-color);
+          }
+
+          ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+
+            li {
+              margin: 0.5rem 0;
+            }
+          }
+
+          img {
+            display: block;
+          }
+        }
+
+        &.aotw {
+          header {
+            border-bottom-color: transparent;
+          }
+          .value {
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 12rem;
+            justify-content: center;
+            border-radius: 1rem;
+            padding: 1rem;
+
+            div {
+              padding: 0.5rem;
+              border-radius: 0.5rem;
+              color: var(--text-color);
+              text-align: center;
+              font-size: 1.25rem;
+              font-weight: 600;
+              backdrop-filter: blur(0.5rem);
+            }
+          }
         }
       }
 
-      strong {
-        color: var(--accent-color);
-        font-weight: 600;
-      }
-
-      .facts-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, 15rem);
-        gap: 1rem;
-        margin: 2rem 0;
-        align-content: normal;
-        justify-content: center;
-        align-items: start;
+      // Mobile tweaks for facts grid
+      @media (max-width: 45rem) {
+        grid-template-columns: repeat(auto-fit, 13rem);
         justify-items: stretch;
+        margin-top: 3rem;
 
         .fact {
           header {
-            padding: 1rem;
-            border-bottom: 1px solid var(--accent-color);
-            color: var(--accent-color);
-            font-weight: 600;
-            text-transform: uppercase;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 0.5rem;
-
-            .icon {
-              width: 1.5rem;
-              height: 1.5rem;
-            }
+            font-size: 1rem;
+            border-bottom-color: transparent;
+            color: var(--text-color);
+            padding: 0;
+            padding-bottom: 0.5rem;
+            text-align: center;
+            flex-direction: column;
           }
 
           .value {
-            padding: 1rem;
-            border-bottom: 1px solid var(--accent-color);
-            color: var(--text-color);
-            text-align: center;
-            font-size: 1.05rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.5rem;
-
-            &.aotw {
-              background-size: cover;
-              background-position: center;
-              background-repeat: no-repeat;
-              min-height: 14rem;
-              justify-content: flex-end;
-
-              div {
-                background-color: rgba(0, 0, 0, 0.5);
-                padding: 0.5rem;
-                border-radius: 0.25rem;
-                color: var(--text-color);
-                text-align: center;
-                font-size: 1.35rem;
-                font-weight: 600;
-              }
-            }
-
-            strong {
-              color: var(--accent-color);
-            }
-
-            ul {
-              list-style: none;
-              padding: 0;
-              margin: 0;
-
-              li {
-                margin: 0.5rem 0;
-              }
-            }
-
-            img {
-              display: block;
-            }
-          }
-        }
-
-        // Mobile tweaks for facts grid
-        @media (max-width: 45rem) {
-          grid-template-columns: repeat(auto-fit, 13rem);
-          justify-items: stretch;
-          margin-top: 3rem;
-
-          .fact {
-            header {
-              font-size: 1rem;
-              border-bottom-color: transparent;
-              color: var(--text-color);
-              padding: 0;
-              padding-bottom: 0.5rem;
-              text-align: center;
-              flex-direction: column;
-            }
-
-            .value {
-              font-size: 1rem;
-              border-bottom-color: transparent;
-              padding: 0 0 1rem 0;
-            }
+            font-size: 1rem;
+            border-bottom-color: transparent;
+            padding: 0 0 1rem 0;
           }
         }
       }
