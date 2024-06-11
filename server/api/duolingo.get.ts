@@ -1,5 +1,5 @@
-const puppeteer = require('puppeteer-core')
-const chromium = require('@sparticuz/chromium')
+import puppeteer from 'puppeteer-core'
+import chromium from '@sparticuz/chromium'
 
 let cache = {
   time: Date.now(),
