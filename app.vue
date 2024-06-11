@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <div class="center">
-      <header>
+      <header class="main">
         <h1>Vic van Cooten</h1>
         <NuxtImg
           src="/me.jpg"
@@ -65,10 +65,15 @@
               <Icon name="ph:vinyl-record-thin" />
               Album of the week
             </header>
-            <div class="value">
-              <strong>{{ lastfmData?.weekly.name }}</strong>
-              by
-              <strong>{{ lastfmData?.weekly.artist }}</strong>
+            <div
+              class="value"
+              :style="{ backgroundImage: `url('${albumOfTheWeekImage}')` }"
+            >
+              <div>
+                <strong>{{ lastfmData?.weekly.name }}</strong>
+                by
+                <strong>{{ lastfmData?.weekly.artist }}</strong>
+              </div>
             </div>
           </div>
 
@@ -163,6 +168,11 @@ const accentColorLight = is_day
 
 // Fetch lastfm data
 const { data: lastfmData } = await useFetch('/api/lastfm')
+const img = useImage()
+const albumOfTheWeekImage = img(`${lastfmData?.weekly?.image}`, {
+  width: 40,
+  height: 40,
+})
 
 // Now use useHead to set the --primary-color variable globally
 useHead({
@@ -190,12 +200,14 @@ useHead({
 
 <style lang="scss">
 html,
-body {
+body,
+#__nuxt {
   margin: 0;
   padding: 0;
   font-family: 'Quicksand', sans-serif;
   font-weight: 300;
   font-size: 0.9rem;
+  height: 100%;
 }
 ::selection {
   background-color: var(--accent-color-light);
@@ -206,11 +218,15 @@ body {
   border-radius: 50%;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 .page {
   background-color: var(--background-color);
   color: var(--text-color);
   transition: all 0.3s ease;
-  height: 100vh;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -219,7 +235,7 @@ body {
     width: 100%;
     max-width: 55rem;
 
-    header {
+    header.main {
       display: flex;
       flex-direction: row;
       align-items: center;
@@ -280,7 +296,7 @@ body {
         align-content: normal;
         justify-content: center;
         align-items: start;
-        justify-items: center;
+        justify-items: stretch;
 
         .fact {
           header {
@@ -306,6 +322,10 @@ body {
             color: var(--text-color);
             text-align: center;
             font-size: 1.05rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
 
             strong {
               color: var(--accent-color);
@@ -320,23 +340,48 @@ body {
                 margin: 0.5rem 0;
               }
             }
+
+            img {
+              display: block;
+            }
           }
         }
 
-        @media (max-width: 768px) {
-          grid-template-columns: 1fr 1fr;
+        // Mobile tweaks for facts grid
+        @media (max-width: 45rem) {
+          grid-template-columns: repeat(auto-fit, 13rem);
+          justify-items: stretch;
+          margin-top: 3rem;
+
+          .fact {
+            header {
+              font-size: 1rem;
+              border-bottom-color: transparent;
+              color: var(--text-color);
+              padding: 0;
+              padding-bottom: 0.5rem;
+              text-align: center;
+              flex-direction: column;
+            }
+
+            .value {
+              font-size: 1rem;
+              border-bottom-color: transparent;
+              padding: 0 0 1rem 0;
+            }
+          }
         }
       }
     }
   }
 
-  @media (max-width: 768px) {
-    padding: 1.5rem;
+  @media (max-width: 55rem) {
+    padding: 1rem;
     justify-content: flex-start;
     align-items: flex-start;
 
     .center {
-      header {
+      header.main {
         flex-direction: column-reverse;
       }
     }
