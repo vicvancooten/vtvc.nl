@@ -49,7 +49,7 @@
         </div>
 
         <!-- Steps -->
-        <div class="fact">
+        <div class="fact" v-if="steps > 999">
           <header>
             <Icon name="fa-solid:shoe-prints" />
             Steps today
