@@ -63,13 +63,15 @@
         <div class="facts-grid">
           <!-- Last.fm -->
           <div class="fact">
-            <div class="label">Album of the Week</div>
-            <NuxtImg
-              class="rounded"
-              :width="40"
-              :height="40"
-              :src="lastfmData?.weekly.image"
-            />
+            <div class="label">
+              <NuxtImg
+                class="rounded"
+                :width="45"
+                :height="45"
+                :src="lastfmData?.weekly.image"
+              />
+              Album of the Week
+            </div>
             <div class="value">
               {{ lastfmData?.weekly.name }} by
               {{ lastfmData?.weekly.artist }}
@@ -82,34 +84,40 @@
               <Icon name="fa-solid:record-vinyl" />
               Music stats
             </div>
-            <div class="value">
-              {{
-                Intl.NumberFormat('nl-NL').format(
-                  lastfmData?.overall.play_count,
-                )
-              }}
-              plays
-            </div>
-          </div>
-
-          <!-- Lifetime unique artists -->
-          <div class="fact">
-            <div class="label">Lifetime unique artists</div>
-            <Icon name="mdi:artist" />
-            <div class="value">
-              {{
-                Intl.NumberFormat('nl-NL').format(
-                  lastfmData?.overall.artist_count,
-                )
-              }}
-              artists
-            </div>
+            <ul class="value">
+              <li>
+                {{
+                  Intl.NumberFormat('nl-NL').format(
+                    lastfmData?.overall.play_count,
+                  )
+                }}
+                plays
+              </li>
+              <li>
+                {{
+                  Intl.NumberFormat('nl-NL').format(
+                    lastfmData?.overall.album_count,
+                  )
+                }}
+                albums
+              </li>
+              <li>
+                {{
+                  Intl.NumberFormat('nl-NL').format(
+                    lastfmData?.overall.artist_count,
+                  )
+                }}
+                artists
+              </li>
+            </ul>
           </div>
 
           <!-- Steps -->
           <div class="fact" v-if="steps > 1000">
-            <div class="label">Steps today</div>
-            <Icon name="ion:footsteps" />
+            <div class="label">
+              <Icon name="ion:footsteps" />
+              Steps today
+            </div>
             <div class="value">
               {{ Intl.NumberFormat('nl-NL').format(steps) }} steps
             </div>
@@ -275,30 +283,30 @@ body {
 
         .fact {
           border: 1px solid var(--accent-color-light);
-          color: var(--accent-color-light);
-          padding: 1rem;
+          color: var(--text-color);
           border-radius: 0.5rem;
-          text-align: center;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-          gap: 0.75rem;
           transition: all 0.3s ease;
+          padding: 1rem;
+          font-size: 1rem;
 
           .label {
             font-size: 1.25rem;
             font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
           }
 
-          svg {
-            width: 2rem;
-            height: 2rem;
+          ul {
+            list-style: none;
+            padding: 0;
+            margin: 0.25rem 0 0 0;
           }
 
-          img {
-            width: 3rem;
-            height: 3rem;
+          .value {
+            font-size: 1.1rem;
+            font-weight: 300;
+            margin-top: 0.5rem;
           }
 
           &:hover {
