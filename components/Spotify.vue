@@ -24,25 +24,28 @@
 const { data } = await useFetch('/api/spotify')
 
 // Quick access the variables
-const {
-  isPlaying,
-  track: { name: trackName, url: trackUrl },
-  artists,
-  album: { name: albumName, url: albumUrl },
-} = data.value
-const artistName = artists[0].name
-const artistUrl = artists[0].url
+const { isPlaying } = data.value
 
-// Spotify BPM matching
-const animationDuration = `${
-  (1 / data.value.track!.beatsPerSecond) * data.value.track!.timeSignature
-}s`
-const animateSpotify = ref(true)
-function resetSpotifyAnimation() {
-  animateSpotify.value = false
-  setTimeout(() => {
-    animateSpotify.value = true
-  }, 100)
+if (isPlaying) {
+  const {
+    track: { name: trackName, url: trackUrl },
+    artists,
+    album: { name: albumName, url: albumUrl },
+  } = data.value
+  const artistName = artists?.[0].name
+  const artistUrl = artists?.[0].url
+
+  // Spotify BPM matching
+  const animationDuration = `${
+    (1 / data.value.track!.beatsPerSecond) * data.value.track!.timeSignature
+  }s`
+  const animateSpotify = ref(true)
+  function resetSpotifyAnimation() {
+    animateSpotify.value = false
+    setTimeout(() => {
+      animateSpotify.value = true
+    }, 100)
+  }
 }
 </script>
 

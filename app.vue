@@ -27,9 +27,9 @@
                 backgroundColor: `rgba(${is_day ? 255 : 0},${is_day ? 255 : 0},${is_day ? 255 : 0},0.5)`,
               }"
             >
-              <strong>{{ lastfmData?.weekly.name }}</strong>
+              <strong>{{ lastfmData?.weekly?.name }}</strong>
               by
-              <strong>{{ lastfmData?.weekly.artist }}</strong>
+              <strong>{{ lastfmData?.weekly?.artist }}</strong>
             </div>
           </div>
         </div>

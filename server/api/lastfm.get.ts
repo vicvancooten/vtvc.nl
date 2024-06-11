@@ -35,7 +35,7 @@ export default defineEventHandler(async () => {
     },
     weekly: {
       artist: weekly?.weeklyalbumchart?.album?.[0]?.artist?.['#text'],
-      name: weekly?.weeklyalbumchart?.album?.[0].name,
+      name: weekly?.weeklyalbumchart?.album?.[0]?.name,
       count: +weekly?.weeklyalbumchart?.album?.[0].playcount,
       image: aotw?.album?.image.find(
         (a: { size: string }) => a.size === 'mega',
