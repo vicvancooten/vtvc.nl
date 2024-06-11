@@ -26,5 +26,8 @@
     "@nuxt/image": "^1.7.0",
     "nuxt-icon": "^0.6.10",
     "sass": "^1.77.4"
+  },
+  "engines": {
+    "node": "14.x"
   }
 }
