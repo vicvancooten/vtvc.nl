@@ -1,4 +1,3 @@
-import puppeteer from 'puppeteer-core'
 import chromium from 'chrome-aws-lambda'
 
 let cache = {
@@ -31,11 +30,12 @@ export default defineEventHandler(async (event) => {
 })
 
 async function getDuolingoStreak(username: string) {
-  const browser = await puppeteer.launch({
-    args: chromium.args,
+  const browser = await chromium.puppeteer.launch({
+    args: [...chromium.args, '--hide-scrollbars', '--disable-web-security'],
     defaultViewport: chromium.defaultViewport,
     executablePath: await chromium.executablePath,
-    headless: chromium.headless,
+    headless: true,
+    ignoreHTTPSErrors: true,
   })
 
   const page = await browser.newPage()
