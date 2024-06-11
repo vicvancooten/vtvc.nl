@@ -34,6 +34,34 @@
           </div>
         </div>
 
+        <!-- Duolingo streak -->
+        <div class="fact">
+          <header>
+            <Icon name="mdi:fire" />
+            Duolingo streak
+          </header>
+          <div class="value">
+            <div>
+              <strong>{{ streak }}</strong>
+              days
+            </div>
+          </div>
+        </div>
+
+        <!-- Steps -->
+        <div class="fact">
+          <header>
+            <Icon name="fa-solid:shoe-prints" />
+            Steps today
+          </header>
+          <div class="value">
+            <div>
+              <strong>{{ Intl.NumberFormat('nl-NL').format(steps) }}</strong>
+              steps
+            </div>
+          </div>
+        </div>
+
         <!-- Lifetime music stats -->
         <div class="fact">
           <header>
@@ -73,20 +101,6 @@
                 artists
               </li>
             </ul>
-          </div>
-        </div>
-
-        <!-- Steps -->
-        <div class="fact">
-          <header>
-            <Icon name="fa-solid:shoe-prints" />
-            Steps today
-          </header>
-          <div class="value">
-            <div>
-              <strong>{{ Intl.NumberFormat('nl-NL').format(steps) }}</strong>
-              steps
-            </div>
           </div>
         </div>
       </div>
@@ -132,6 +146,10 @@ const albumOfTheWeekImage = img(`${lastfmData.value?.weekly?.image}`, {
   width: 160,
   height: 160,
 })
+
+// Duoling
+const { data: duolingoData } = await useFetch('/api/duolingo')
+const streak = duolingoData.value?.streak ?? 0
 
 // Now use useHead to set the --primary-color variable globally
 useHead({
@@ -205,14 +223,14 @@ a {
 
   .center {
     width: 100%;
-    max-width: 55rem;
+    max-width: 70rem;
 
     cursor: default;
 
     .facts-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, 15rem);
-      gap: 1rem;
+      gap: 2rem;
       margin: 2rem 0;
       align-content: normal;
       justify-content: center;
