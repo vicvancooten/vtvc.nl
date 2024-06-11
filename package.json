@@ -10,6 +10,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@sparticuz/chromium": "^123.0.1",
     "@types/chroma-js": "^2.4.4",
     "chroma-js": "^2.4.2",
     "chrome-aws-lambda": "^10.1.0",
@@ -26,8 +27,5 @@
     "@nuxt/image": "^1.7.0",
     "nuxt-icon": "^0.6.10",
     "sass": "^1.77.4"
-  },
-  "engines": {
-    "node": "14.x"
   }
 }

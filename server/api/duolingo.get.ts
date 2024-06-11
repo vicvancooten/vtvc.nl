@@ -1,5 +1,5 @@
-import chromium from 'chrome-aws-lambda'
-import puppeteer from 'puppeteer-core'
+const puppeteer = require('puppeteer-core')
+const chromium = require('@sparticuz/chromium')
 
 let cache = {
   time: Date.now(),
@@ -33,11 +33,9 @@ export default defineEventHandler(async (event) => {
 async function getDuolingoStreak(username: string) {
   const browser = await puppeteer.launch({
     args: chromium.args,
-    executablePath:
-      process.env.NODE_ENV !== 'development'
-        ? await chromium.executablePath
-        : '/bin/chromium',
-    headless: true,
+    defaultViewport: chromium.defaultViewport,
+    executablePath: await chromium.executablePath(),
+    headless: chromium.headless,
   })
 
   const page = await browser.newPage()
