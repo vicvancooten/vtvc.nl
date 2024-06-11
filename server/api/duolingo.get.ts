@@ -1,5 +1,6 @@
 import puppeteer from 'puppeteer-core'
 import chromium from '@sparticuz/chromium'
+export const maxDuration = 60 // For vercel functions
 
 let cache = {
   time: Date.now(),
