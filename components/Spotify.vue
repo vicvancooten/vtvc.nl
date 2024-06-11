@@ -1,6 +1,11 @@
 <template>
   <div class="spotify" v-if="isPlaying">
-    <Icon name="bi:spotify" :style="{ animationDuration }" />
+    <Icon
+      name="bi:spotify"
+      :style="{ animationDuration }"
+      :class="{ animating: animateSpotify }"
+      @click="resetSpotifyAnimation"
+    />
     <div>
       Right now, I'm listening to
       <NuxtLink :href="trackUrl">{{ trackName }}</NuxtLink>
@@ -32,6 +37,13 @@ const artistUrl = artists[0].url
 const animationDuration = `${
   (1 / data.value.track!.beatsPerSecond) * data.value.track!.timeSignature
 }s`
+const animateSpotify = ref(true)
+function resetSpotifyAnimation() {
+  animateSpotify.value = false
+  setTimeout(() => {
+    animateSpotify.value = true
+  }, 100)
+}
 </script>
 
 <style scoped lang="scss">
@@ -48,7 +60,9 @@ const animationDuration = `${
     padding: 0;
     margin: 0;
     color: #1db954;
-    animation: pulse 100s infinite;
+    &.animating {
+      animation: pulse 100s infinite;
+    }
   }
 
   a {
