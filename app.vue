@@ -66,7 +66,7 @@
               Album of the week
             </header>
             <div
-              class="value"
+              class="value aotw"
               :style="{ backgroundImage: `url('${albumOfTheWeekImage}')` }"
             >
               <div>
@@ -142,6 +142,7 @@
  */
 import chroma from 'chroma-js'
 import moment from 'moment-timezone'
+const img = useImage()
 
 // Fetch hass data, used for the primary color and steps
 const { data } = await useFetch('/api/hass')
@@ -168,10 +169,10 @@ const accentColorLight = is_day
 
 // Fetch lastfm data
 const { data: lastfmData } = await useFetch('/api/lastfm')
-const img = useImage()
-const albumOfTheWeekImage = img(`${lastfmData?.weekly?.image}`, {
-  width: 40,
-  height: 40,
+// Preprocess and optimize the album of the week image
+const albumOfTheWeekImage = img(`${lastfmData.value?.weekly?.image}`, {
+  width: 160,
+  height: 160,
 })
 
 // Now use useHead to set the --primary-color variable globally
@@ -208,6 +209,8 @@ body,
   font-weight: 300;
   font-size: 0.9rem;
   height: 100%;
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
 ::selection {
   background-color: var(--accent-color-light);
@@ -223,8 +226,6 @@ body,
 }
 
 .page {
-  background-color: var(--background-color);
-  color: var(--text-color);
   transition: all 0.3s ease;
   height: 100%;
   display: flex;
@@ -326,6 +327,24 @@ body,
             flex-direction: column;
             align-items: center;
             gap: 0.5rem;
+
+            &.aotw {
+              background-size: cover;
+              background-position: center;
+              background-repeat: no-repeat;
+              min-height: 14rem;
+              justify-content: flex-end;
+
+              div {
+                background-color: rgba(0, 0, 0, 0.5);
+                padding: 0.5rem;
+                border-radius: 0.25rem;
+                color: var(--text-color);
+                text-align: center;
+                font-size: 1.35rem;
+                font-weight: 600;
+              }
+            }
 
             strong {
               color: var(--accent-color);
