@@ -123,7 +123,9 @@ const color = chroma(primaryColor)
 const backgroundColorLight = color.brighten(3).desaturate(2.5).hex()
 const backgroundColorDark = color.darken(3).desaturate(1.5).hex()
 const textColorLight = color.desaturate(1.5).darken(4).hex()
+const textColorExtraContrastLight = chroma(textColorLight).darken(2).hex()
 const textColorDark = color.brighten(4).desaturate(2).hex()
+const textColorExtraContrastDark = chroma(textColorDark).brighten(2).hex()
 const accentColorLight = color.darken(2).saturate(2).hex()
 const accentColorDark = color.brighten(1.5).hex()
 const accentColorMildLight = chroma(backgroundColorLight)
@@ -152,6 +154,10 @@ const streak = duolingoData.value?.streak ?? 0
 // Now use useHead to set the --primary-color variable globally
 useHead({
   title: 'Vic van Cooten',
+  // Set lang attribute for accessibility
+  htmlAttrs: {
+    lang: 'en',
+  },
   // Set the accent color to the theme color
   meta: [
     {
@@ -165,12 +171,14 @@ useHead({
       innerHTML: `:root { 
         --background-color: ${backgroundColorLight}; 
         --text-color: ${textColorLight}; 
+        --text-color-extra-contrast: ${textColorExtraContrastLight};
         --accent-color: ${accentColorLight}; 
         --accent-color-mild: rgba(${accentColorMildLight});
 
         @media (prefers-color-scheme: dark) {
           --background-color: ${backgroundColorDark}; 
           --text-color: ${textColorDark}; 
+          --text-color-extra-contrast: ${textColorExtraContrastDark};
           --accent-color: ${accentColorDark}; 
           --accent-color-mild: rgba(${accentColorMildNight});
         }
@@ -199,14 +207,14 @@ body,
 }
 
 a {
-  color: var(--accent-color);
+  color: var(--text-color-extra-contrast);
   text-decoration: none;
   transition: all 0.3s ease;
   cursor: pointer;
-  font-weight: 300;
+  font-weight: 500;
 
   &:hover {
-    color: var(--accent-color-mild);
+    color: var(--text-color);
     text-decoration: underline;
   }
 }
@@ -315,9 +323,9 @@ a {
               text-align: center;
               font-size: 1.15rem;
               font-weight: 600;
-              backdrop-filter: blur(0.5rem);
+              backdrop-filter: blur(1rem);
               width: 100%;
-              background-color: rgba(222, 222, 222, 0.6);
+              background-color: rgba(222, 222, 222, 0.75);
               border-top: 1px solid var(--accent-color-mild);
 
               strong {
@@ -325,7 +333,7 @@ a {
               }
 
               @media (prefers-color-scheme: dark) {
-                background-color: rgba(0, 0, 0, 0.6);
+                background-color: rgba(0, 0, 0, 0.75);
               }
             }
           }
@@ -333,8 +341,14 @@ a {
       }
 
       // Mobile tweaks for facts grid
-      @media (max-width: 45rem) {
-        grid-template-columns: repeat(auto-fit, 13rem);
+      @media (max-width: 800px) {
+        grid-template-columns: 1fr;
+        @media (min-width: 500px) {
+          grid-template-columns: 1fr 1fr;
+          .aotw {
+            grid-column: span 2;
+          }
+        }
         justify-items: stretch;
         margin-top: 3rem;
 
