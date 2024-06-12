@@ -22,11 +22,7 @@
             class="value"
             :style="{ backgroundImage: `url('${albumOfTheWeekImage}')` }"
           >
-            <div
-              :style="{
-                backgroundColor: `rgba(${is_day ? 255 : 0},${is_day ? 255 : 0},${is_day ? 255 : 0},0.5)`,
-              }"
-            >
+            <div class="overlay">
               <strong>{{ lastfmData?.weekly?.name }}</strong>
               by
               <strong>{{ lastfmData?.weekly?.artist }}</strong>
@@ -123,21 +119,23 @@ const primaryColor = data.value?.color ?? '#000000'
 const steps = data.value?.steps ?? 0
 
 // Create a color palette based on the primary color and the time of day
-const hour = moment().tz('Europe/Amsterdam').hour()
-const is_day = hour >= 6 && hour < 19
 const color = chroma(primaryColor)
-const backgroundColor = is_day
-  ? color.brighten(3).desaturate(2.5).hex()
-  : color.darken(3).desaturate(1.5).hex()
-const textColor = is_day
-  ? color.desaturate(1.5).darken(4).hex()
-  : color.brighten(4).desaturate(2).hex()
-const accentColor = is_day
-  ? color.darken(2).saturate(2).hex()
-  : color.brighten(1.5).hex()
-const accentColorLight = is_day
-  ? chroma(backgroundColor).darken(2).saturate(1).alpha(0.95).rgba()
-  : chroma(accentColor).brighten(2).desaturate(2).alpha(0.75).rgba()
+const backgroundColorLight = color.brighten(3).desaturate(2.5).hex()
+const backgroundColorDark = color.darken(3).desaturate(1.5).hex()
+const textColorLight = color.desaturate(1.5).darken(4).hex()
+const textColorDark = color.brighten(4).desaturate(2).hex()
+const accentColorLight = color.darken(2).saturate(2).hex()
+const accentColorDark = color.brighten(1.5).hex()
+const accentColorMildLight = chroma(backgroundColorLight)
+  .darken(2)
+  .saturate(1)
+  .alpha(0.95)
+  .rgba()
+const accentColorMildNight = chroma(backgroundColorDark)
+  .brighten(2)
+  .desaturate(2)
+  .alpha(0.75)
+  .rgba()
 
 // Fetch lastfm data
 const { data: lastfmData } = await useFetch('/api/lastfm')
@@ -158,17 +156,24 @@ useHead({
   meta: [
     {
       name: 'theme-color',
-      content: accentColor,
+      content: accentColorLight,
     },
   ],
   // Set the primary color as a CSS variable
   style: [
     {
       innerHTML: `:root { 
-        --background-color: ${backgroundColor}; 
-        --text-color: ${textColor}; 
-        --accent-color: ${accentColor}; 
-        --accent-color-light: rgba(${accentColorLight});
+        --background-color: ${backgroundColorLight}; 
+        --text-color: ${textColorLight}; 
+        --accent-color: ${accentColorLight}; 
+        --accent-color-mild: rgba(${accentColorMildLight});
+
+        @media (prefers-color-scheme: dark) {
+          --background-color: ${backgroundColorDark}; 
+          --text-color: ${textColorDark}; 
+          --accent-color: ${accentColorDark}; 
+          --accent-color-mild: rgba(${accentColorMildNight});
+        }
       }`,
     },
   ],
@@ -189,7 +194,7 @@ body,
   color: var(--text-color);
 }
 ::selection {
-  background-color: var(--accent-color-light);
+  background-color: var(--accent-color-mild);
   color: var(--text-color);
 }
 
@@ -201,7 +206,7 @@ a {
   font-weight: 300;
 
   &:hover {
-    color: var(--accent-color-light);
+    color: var(--accent-color-mild);
     text-decoration: underline;
   }
 }
@@ -287,25 +292,41 @@ a {
 
         &.aotw {
           header {
-            border-bottom-color: transparent;
+            border: 0;
           }
           .value {
+            border: 0;
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            min-height: 12rem;
+            min-height: 14rem;
             justify-content: center;
             border-radius: 1rem;
-            padding: 1rem;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: stretch;
+            overflow: hidden;
 
-            div {
+            .overlay {
               padding: 0.5rem;
-              border-radius: 0.5rem;
               color: var(--text-color);
               text-align: center;
-              font-size: 1.25rem;
+              font-size: 1.15rem;
               font-weight: 600;
               backdrop-filter: blur(0.5rem);
+              width: 100%;
+              background-color: rgba(222, 222, 222, 0.6);
+              border-top: 1px solid var(--accent-color-mild);
+
+              strong {
+                color: var(--text-color);
+              }
+
+              @media (prefers-color-scheme: dark) {
+                background-color: rgba(0, 0, 0, 0.6);
+              }
             }
           }
         }

@@ -26,36 +26,44 @@ const { data } = await useFetch('/api/spotify')
 // Quick access the variables
 const { isPlaying } = data.value
 
+let trackName: string
+let trackUrl: string
+let artistName: string
+let artistUrl: string
+let albumName: string
+let albumUrl: string
+let animationDuration: string
+const animateSpotify = ref(true)
+function resetSpotifyAnimation() {
+  animateSpotify.value = false
+  setTimeout(() => {
+    animateSpotify.value = true
+  }, 100)
+}
+
 if (isPlaying) {
-  const {
-    track: { name: trackName, url: trackUrl },
-    artists,
-    album: { name: albumName, url: albumUrl },
-  } = data.value
-  const artistName = artists?.[0].name
-  const artistUrl = artists?.[0].url
+  const { track, album, artists } = data.value
+  trackName = track!.name
+  trackUrl = track!.url
+  albumName = album!.name
+  albumUrl = album!.url
+  artistName = artists?.[0].name
+  artistUrl = artists?.[0].url
 
   // Spotify BPM matching
-  const animationDuration = `${
-    (1 / data.value.track!.beatsPerSecond) * data.value.track!.timeSignature
-  }s`
-  const animateSpotify = ref(true)
-  function resetSpotifyAnimation() {
-    animateSpotify.value = false
-    setTimeout(() => {
-      animateSpotify.value = true
-    }, 100)
-  }
+  animationDuration = `${(1 / track!.beatsPerSecond) * track!.timeSignature}s`
 }
 </script>
 
 <style scoped lang="scss">
 .spotify {
   display: flex;
-  gap: 0.5rem;
+  gap: 1rem;
   align-items: center;
   font-size: 1.25rem;
-  padding: 1rem 0;
+  padding: 1rem;
+  border: 1px solid var(--accent-color-mild);
+  border-radius: 1rem;
 
   svg {
     border-radius: 50%;
@@ -63,6 +71,8 @@ if (isPlaying) {
     padding: 0;
     margin: 0;
     color: #1db954;
+    width: 1.5rem;
+    height: 1.5rem;
     &.animating {
       animation: pulse 100s infinite;
     }
