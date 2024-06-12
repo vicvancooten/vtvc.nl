@@ -1,12 +1,11 @@
 <template>
-  <div class="spotify" v-if="isPlaying">
-    <Icon
-      name="bi:spotify"
+  <div class="spotify" v-if="isPlaying" @click="resetSpotifyAnimation">
+    <NuxtImg
+      :src="albumImage"
       :style="{ animationDuration }"
-      :class="{ animating: animateSpotify }"
-      @click="resetSpotifyAnimation"
+      :class="['album-art', { animating: animateSpotify }]"
     />
-    <div>
+    <div class="text">
       Right now, I'm listening to
       <NuxtLink :href="trackUrl">{{ trackName }}</NuxtLink>
       by
@@ -17,6 +16,11 @@
       <NuxtLink :href="albumUrl">{{ albumName }}</NuxtLink>
       )
     </div>
+    <Icon
+      name="bi:spotify"
+      :style="{ animationDuration }"
+      :class="{ animating: animateSpotify }"
+    />
   </div>
 </template>
 
@@ -33,6 +37,7 @@ let artistUrl: string
 let albumName: string
 let albumUrl: string
 let animationDuration: string
+let albumImage: string
 const animateSpotify = ref(true)
 function resetSpotifyAnimation() {
   animateSpotify.value = false
@@ -49,6 +54,7 @@ if (isPlaying) {
   albumUrl = album!.url
   artistName = artists?.[0].name
   artistUrl = artists?.[0].url
+  albumImage = album!.image
 
   // Spotify BPM matching
   animationDuration = `${(1 / track!.beatsPerSecond) * track!.timeSignature}s`
@@ -60,9 +66,9 @@ if (isPlaying) {
   display: flex;
   gap: 1rem;
   align-items: center;
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   padding: 1rem;
-  border: 1px solid var(--accent-color-mild);
+  border: 1px solid #1db954;
   border-radius: 1rem;
 
   svg {
@@ -76,6 +82,20 @@ if (isPlaying) {
     &.animating {
       animation: pulse 100s infinite;
     }
+  }
+
+  .album-art {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    &.animating {
+      animation: pulse 100s infinite;
+    }
+  }
+
+  .text {
+    flex: 1;
+    text-align: center;
   }
 
   a {
