@@ -1,66 +1,20 @@
-import puppeteer from 'puppeteer-core'
-import chromium from '@sparticuz/chromium'
-export const maxDuration = 60 // For vercel functions
-
-let cache = {
-  time: Date.now(),
-  streak: 0,
-}
-
+/**
+ * This endpoint fetches the current Duolingo streak for a user
+ * It uses a proxy, because this website is based on the edge and functions are not the right place to run puppeteer
+ * The proxy can be set in the environment variable DUOLINGO_STREAK_PROXY
+ */
 export default defineEventHandler(async (event) => {
-  const currentTime = Date.now()
-  const oneDay = 24 * 60 * 60 * 1000 // 24 hours in milliseconds
-
-  if (!process.env.DUOLINGO_USER) {
-    return { error: 'DUOLINGO_USER environment variable not set' }
+  if (!process.env.DUOLINGO_STREAK_PROXY) {
+    return { error: 'DUOLINGO_STREAK_PROXY environment variable not set' }
   }
 
-  // If more than 24 hours have passed since the last fetch, update the cache
-  if (cache.streak === 0 || currentTime - cache.time > oneDay) {
-    return { streak: 302, cache: false }
-    return getDuolingoStreak(process.env.DUOLINGO_USER)
-      .then((streak) => {
-        cache = { time: currentTime, streak } // Update the cache
-        return { streak, cache: false }
-      })
-      .catch((error) => {
-        return { error }
-      })
-  } else {
-    // If less than 24 hours have passed, return the cached result
-    return { streak: cache.streak, cache: true }
+  // Fetch result from proxy
+  const response = await fetch(`${process.env.DUOLINGO_STREAK_PROXY}`)
+  const data = await response.json()
+
+  if (!data.streak) {
+    return { error: 'Failed to fetch data from proxy' }
   }
+
+  return data as { streak: string; cache: 'hit' | 'miss' }
 })
-
-async function getDuolingoStreak(username: string) {
-  const browser = await puppeteer.launch({
-    args: chromium.args,
-    defaultViewport: chromium.defaultViewport,
-    executablePath: await chromium.executablePath(),
-    headless: chromium.headless,
-  })
-
-  const page = await browser.newPage()
-  await page.goto(`https://www.duolingo.com/profile/${username}`)
-
-  // Wait for the page to load fully
-  await page.waitForSelector('h4')
-
-  // Find the element that has both a H4 as well as the text "Day streak". Return the text content of the H4.
-  const streak = await page.evaluate(() => {
-    // Find all div elements
-    const divs = Array.from(document.querySelectorAll('div'))
-
-    // Find the div that contains both an h4 and the text "Day streak"
-    for (const div of divs) {
-      const h4 = div.querySelector('h4')
-      if (h4 && div.textContent.includes('Day streak')) {
-        return h4.textContent
-      }
-    }
-    return null
-  })
-
-  await browser.close()
-  return parseInt(`${streak}`)
-}
