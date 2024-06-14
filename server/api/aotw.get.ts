@@ -1,11 +1,5 @@
 export default defineEventHandler(async () => {
   const username = process.env.LASTFM_USER
-  // Fetch user info
-  const overall_response = await fetch(
-    `https://ws.audioscrobbler.com/2.0/?method=user.getinfo&user=${username}&api_key=${process.env.LASTFM_API_KEY}&format=json`,
-  )
-  const overall = await overall_response.json()
-
   // Fetch top album
   const weekly_response = await fetch(
     `https://ws.audioscrobbler.com/2.0/?method=user.getWeeklyAlbumChart&user=${username}&api_key=${process.env.LASTFM_API_KEY}&format=json`,
@@ -28,22 +22,15 @@ export default defineEventHandler(async () => {
 
   // Structure & return
   return {
-    overall: {
-      play_count: +overall?.user?.playcount,
-      artist_count: +overall?.user?.artist_count,
-      album_count: +overall?.user?.album_count,
-    },
-    weekly: {
-      artist: weekly?.weeklyalbumchart?.album?.[0]?.artist?.['#text'],
-      name: weekly?.weeklyalbumchart?.album?.[0]?.name,
-      count: +weekly?.weeklyalbumchart?.album?.[0].playcount,
-      image: aotw?.album?.image.find(
-        (a: { size: string }) => a.size === 'mega',
-      )?.['#text'],
-      percentage:
-        (+weekly?.weeklyalbumchart?.album?.[0].playcount /
-          +aotw?.album.playcount) *
-        100,
-    },
+    artist: weekly?.weeklyalbumchart?.album?.[0]?.artist?.['#text'],
+    name: weekly?.weeklyalbumchart?.album?.[0]?.name,
+    count: +weekly?.weeklyalbumchart?.album?.[0].playcount,
+    image: aotw?.album?.image.find(
+      (a: { size: string }) => a.size === 'mega',
+    )?.['#text'],
+    percentage:
+      (+weekly?.weeklyalbumchart?.album?.[0].playcount /
+        +aotw?.album.playcount) *
+      100,
   }
 })

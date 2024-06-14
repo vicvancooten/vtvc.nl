@@ -4,9 +4,10 @@ export default defineNuxtConfig({
     routeRules: {
       // API routes cache shorter than the main route, to make sure a new invokation triggers ISR
       '/api/spotify': { isr: 29 },
-      '/api/lastfm': { isr: 59 },
+      '/api/lastfm-stats': { isr: 59 },
+      '/api/aotw': { isr: 59 },
       '/api/hass': { isr: 59 },
-      '/api/duolingo': { isr: 59 },
+      '/api/duolingo': { isr: false }, // Cache happens at proxy level.
 
       // Main route
       '/**': { isr: 60 },

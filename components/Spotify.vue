@@ -118,7 +118,6 @@ function resetSpotifyAnimation() {
   height: 15rem;
   color: white;
   padding: 1rem;
-  // Add a background overlay to keep the text legible
   background: var(--accent-color-semi-transparent);
   background-position: center;
   background-size: cover;

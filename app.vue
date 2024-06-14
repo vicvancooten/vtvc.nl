@@ -41,22 +41,7 @@
         </div>
 
         <!-- Album of the Week -->
-        <div class="fact aotw">
-          <header>
-            <Icon name="ph:vinyl-record-thin" />
-            Album of the week
-          </header>
-          <div
-            class="value"
-            :style="{ backgroundImage: `url('${albumOfTheWeekImage}')` }"
-          >
-            <div class="overlay">
-              <strong>{{ lastfmData?.weekly?.name }}</strong>
-              by
-              <strong>{{ lastfmData?.weekly?.artist }}</strong>
-            </div>
-          </div>
-        </div>
+        <AOTW />
 
         <!-- Lifetime music stats -->
         <div class="fact">
@@ -69,9 +54,7 @@
               <li>
                 <strong>
                   {{
-                    Intl.NumberFormat('nl-NL').format(
-                      lastfmData?.overall.play_count,
-                    )
+                    Intl.NumberFormat('nl-NL').format(lastfmData?.play_count)
                   }}
                 </strong>
                 plays
@@ -79,9 +62,7 @@
               <li>
                 <strong>
                   {{
-                    Intl.NumberFormat('nl-NL').format(
-                      lastfmData?.overall.album_count,
-                    )
+                    Intl.NumberFormat('nl-NL').format(lastfmData?.album_count)
                   }}
                 </strong>
                 albums
@@ -89,9 +70,7 @@
               <li>
                 <strong>
                   {{
-                    Intl.NumberFormat('nl-NL').format(
-                      lastfmData?.overall.artist_count,
-                    )
+                    Intl.NumberFormat('nl-NL').format(lastfmData?.artist_count)
                   }}
                 </strong>
                 artists
@@ -144,12 +123,7 @@ const accentColorSemiTransparentLight = chroma(accentColorLight)
 const accentColorSemiTransparentDark = chroma(accentColorDark).alpha(0.5).rgba()
 
 // Fetch lastfm data
-const { data: lastfmData } = await useFetch('/api/lastfm')
-// Preprocess and optimize the album of the week image
-const albumOfTheWeekImage = img(`${lastfmData.value?.weekly?.image}`, {
-  width: 160,
-  height: 160,
-})
+const { data: lastfmData } = await useFetch('/api/lastfm-stats')
 
 // Duoling
 const { data: duolingoData } = await useFetch('/api/duolingo')
@@ -285,10 +259,6 @@ a {
           align-items: center;
           gap: 0.5rem;
 
-          strong {
-            color: var(--accent-color);
-          }
-
           ul {
             list-style: none;
             padding: 0;
@@ -301,45 +271,6 @@ a {
 
           img {
             display: block;
-          }
-        }
-
-        &.aotw {
-          .value {
-            border: 0;
-            margin-top: 0.5rem;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            min-height: 15rem;
-            justify-content: center;
-            border-radius: 1rem;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            align-items: stretch;
-            overflow: hidden;
-
-            .overlay {
-              padding: 0.5rem;
-              color: var(--text-color);
-              text-align: center;
-              font-size: 1.15rem;
-              font-weight: 600;
-              backdrop-filter: blur(1rem);
-              width: 100%;
-              background-color: rgba(222, 222, 222, 0.75);
-              border-top: 1px solid var(--accent-color-mild);
-
-              strong {
-                color: var(--text-color);
-              }
-
-              @media (prefers-color-scheme: dark) {
-                background-color: rgba(0, 0, 0, 0.75);
-              }
-            }
           }
         }
       }
