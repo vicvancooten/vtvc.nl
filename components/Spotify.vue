@@ -25,39 +25,53 @@
 </template>
 
 <script lang="ts" setup>
-const { data } = await useFetch('/api/spotify')
+import type { NowPlayingResponse } from '~/server/api/spotify.get'
 
-// Quick access the variables
-const { isPlaying } = data.value
+// Fetch the data on the server, as well as keeping it up to date on the client
+const { data, initialFetch } = useFetchData<NowPlayingResponse>(
+  '/api/spotify', // Spotify endpoint
+  15, // Update every 15 seconds
+)
 
+// This tells the server renderer to wait until the fetch is done. Without this, data would be null and the component wouldn't be rendered.
+await initialFetch()
+
+// Let's initialise some empty variables
+let isPlaying = false
 let trackName: string
 let trackUrl: string
-let artistName: string
-let artistUrl: string
 let albumName: string
 let albumUrl: string
-let animationDuration: string
+let artistName: string
+let artistUrl: string
 let albumImage: string
+let animationDuration: string
+
+// Quick access the variables
+if (data.value?.isPlaying) {
+  isPlaying = true
+  const { track, artists, album } = data.value
+  if (track && artists && album) {
+    trackName = track.name
+    trackUrl = track.url
+    albumName = album.name
+    albumUrl = album.url
+    artistName = artists[0].name
+    artistUrl = artists[0].url
+    albumImage = album.image
+
+    // Spotify BPM matching
+    animationDuration = `${(1 / track!.beatsPerSecond) * track!.timeSignature}s`
+  }
+}
+
+// Animation state
 const animateSpotify = ref(true)
 function resetSpotifyAnimation() {
   animateSpotify.value = false
   setTimeout(() => {
     animateSpotify.value = true
   }, 100)
-}
-
-if (isPlaying) {
-  const { track, album, artists } = data.value
-  trackName = track!.name
-  trackUrl = track!.url
-  albumName = album!.name
-  albumUrl = album!.url
-  artistName = artists?.[0].name
-  artistUrl = artists?.[0].url
-  albumImage = album!.image
-
-  // Spotify BPM matching
-  animationDuration = `${(1 / track!.beatsPerSecond) * track!.timeSignature}s`
 }
 </script>
 
