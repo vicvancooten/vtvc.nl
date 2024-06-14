@@ -47,23 +47,31 @@ let artistUrl: string
 let albumImage: string
 let animationDuration: string
 
-// Quick access the variables
-if (data.value?.isPlaying) {
-  isPlaying = true
-  const { track, artists, album } = data.value
-  if (track && artists && album) {
-    trackName = track.name
-    trackUrl = track.url
-    albumName = album.name
-    albumUrl = album.url
-    artistName = artists[0].name
-    artistUrl = artists[0].url
-    albumImage = album.image
+// Now set the variables if the song is playing
+watch(
+  () => data.value,
+  () => {
+    if (data.value?.isPlaying) {
+      isPlaying = true
+      const { track, artists, album } = data.value
+      if (track && artists && album) {
+        trackName = track.name
+        trackUrl = track.url
+        albumName = album.name
+        albumUrl = album.url
+        artistName = artists[0].name
+        artistUrl = artists[0].url
+        albumImage = album.image
 
-    // Spotify BPM matching
-    animationDuration = `${(1 / track!.beatsPerSecond) * track!.timeSignature}s`
-  }
-}
+        // Spotify BPM matching
+        animationDuration = `${(1 / track.beatsPerSecond) * track.timeSignature}s`
+      }
+    } else {
+      isPlaying = false
+    }
+  },
+  { immediate: true },
+)
 
 // Animation state
 const animateSpotify = ref(true)
