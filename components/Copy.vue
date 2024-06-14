@@ -32,7 +32,7 @@
     the architecture of our SaaS-products.
   </p>
   <p>
-    This page is as much a playground as it is a visiting card. Curious?
+    This page is as much as playground as it is a personal website. Curious?
     <a
       href="https://github.com/Duveaux/vtvc.nl"
       rel="noopener"

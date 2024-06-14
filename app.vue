@@ -7,6 +7,8 @@
       <!-- Body copy -->
       <Copy />
 
+      <ContactGrid />
+
       <!-- Facts grid -->
       <div class="facts-grid">
         <!-- Spotify -->
@@ -16,68 +18,13 @@
         <AOTW />
 
         <!-- Duolingo streak -->
-        <div class="fact">
-          <header>
-            <Icon name="mdi:fire" />
-            Duolingo streak
-          </header>
-          <div class="value">
-            <div>
-              <strong>{{ streak }}</strong>
-              days
-            </div>
-          </div>
-        </div>
+        <Duolingo />
 
         <!-- Steps -->
-        <div class="fact" v-if="steps > 999">
-          <header>
-            <Icon name="fa-solid:shoe-prints" />
-            Steps today
-          </header>
-          <div class="value">
-            <div>
-              <strong>{{ Intl.NumberFormat('nl-NL').format(steps) }}</strong>
-              steps
-            </div>
-          </div>
-        </div>
+        <Steps />
 
         <!-- Lifetime music stats -->
-        <div class="fact">
-          <header>
-            <Icon name="ion:trending-up-outline" />
-            Lifetime music stats
-          </header>
-          <div class="value">
-            <ul>
-              <li>
-                <strong>
-                  {{
-                    Intl.NumberFormat('nl-NL').format(lastfmData?.play_count)
-                  }}
-                </strong>
-                plays
-              </li>
-              <li>
-                <strong>
-                  {{
-                    Intl.NumberFormat('nl-NL').format(lastfmData?.album_count)
-                  }}
-                </strong>
-                albums
-              </li>
-              <li>
-                <strong>
-                  {{
-                    Intl.NumberFormat('nl-NL').format(lastfmData?.artist_count)
-                  }}
-                </strong>
-                artists
-              </li>
-            </ul>
-          </div>
-        </div>
+        <LastFMStats />
       </div>
     </div>
   </div>
@@ -93,9 +40,7 @@ const img = useImage()
 
 // Fetch hass data, used for the primary color and steps
 const { data } = await useFetch('/api/hass')
-
 const primaryColor = data.value?.color ?? '#000000'
-const steps = data.value?.steps ?? 0
 
 // Create a color palette based on the primary color and the time of day
 const color = chroma(primaryColor)
@@ -122,13 +67,6 @@ const accentColorSemiTransparentLight = chroma(accentColorLight)
   .rgba()
 const accentColorSemiTransparentDark = chroma(accentColorDark).alpha(0.5).rgba()
 
-// Fetch lastfm data
-const { data: lastfmData } = await useFetch('/api/lastfm-stats')
-
-// Duoling
-const { data: duolingoData } = await useFetch('/api/duolingo')
-const streak = duolingoData.value?.streak ?? 0
-
 // Now use useHead to set the --primary-color variable globally
 useHead({
   title: 'Vic van Cooten',
@@ -140,7 +78,11 @@ useHead({
   meta: [
     {
       name: 'theme-color',
-      content: accentColorLight,
+      content: accentColorDark,
+    },
+    {
+      name: 'description',
+      content: 'Senior software engineer from Utrecht, the Netherlands.',
     },
   ],
   // Set the primary color as a CSS variable

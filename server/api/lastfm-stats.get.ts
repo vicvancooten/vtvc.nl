@@ -1,3 +1,9 @@
+export type LastfmStatsResponseType = {
+  play_count: number
+  artist_count: number
+  album_count: number
+}
+
 export default defineEventHandler(async () => {
   const username = process.env.LASTFM_USER
   // Fetch user info
@@ -11,5 +17,5 @@ export default defineEventHandler(async () => {
     play_count: +overall?.user?.playcount,
     artist_count: +overall?.user?.artist_count,
     album_count: +overall?.user?.album_count,
-  }
+  } as LastfmStatsResponseType
 })
