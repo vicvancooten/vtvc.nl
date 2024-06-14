@@ -25,8 +25,10 @@ const img = useImage()
 const { data: lastfmData } = await useFetch('/api/aotw')
 // Preprocess and optimize the album of the week image
 const albumOfTheWeekImage = img(`${lastfmData.value?.image}`, {
-  width: 160,
-  height: 160,
+  blur: 10,
+  width: 80,
+  height: 80,
+  formats: ['webp'],
 })
 </script>
 

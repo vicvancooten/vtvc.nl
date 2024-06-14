@@ -90,7 +90,12 @@ watch(
           artistName: artists[0].name,
           artistUrl: artists[0].url,
           animationDuration: `${(1 / track.beatsPerSecond) * track.timeSignature * 2}s`,
-          albumImage: image(album.image),
+          albumImage: image(album.image, {
+            blur: 10,
+            width: 80,
+            height: 80,
+            formats: ['webp'],
+          }),
         }
       }
     } else {
