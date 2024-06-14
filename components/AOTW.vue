@@ -32,57 +32,66 @@ const albumOfTheWeekImage = img(`${lastfmData.value?.image}`, {
 
 <style lang="scss" scoped>
 .aotw {
-  grid-row: 1 / span 2;
-  grid-column: 4;
-}
-.album-preview {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 1rem;
-  align-items: center;
-  font-size: 1.1rem;
-  border-radius: 1rem;
-  width: 100%;
-  aspect-ratio: 1;
-  color: white;
-  padding: 1rem;
-  background: var(--accent-color-semi-transparent);
-  background-position: center;
-  background-size: cover;
-  background-blend-mode: multiply;
+  @media (min-width: 800px) {
+    grid-column: 4;
+    grid-row: 1 / span 2;
+  }
 
-  svg {
-    border-radius: 50%;
-    transform: scale(1);
-    padding: 0;
+  .value {
     margin: 0;
-    color: #1db954;
-    width: 1.5rem;
-    height: 1.5rem;
+    padding: 0;
   }
 
-  .album-art {
-    height: 5rem;
-  }
-
-  .text {
-    flex: 1;
-    text-align: center;
+  .album-preview {
     display: flex;
     flex-direction: column;
+    gap: 1rem;
     align-items: center;
-    justify-content: center;
-  }
-
-  .space-filler {
-    height: 1.5rem;
-  }
-
-  a {
-    text-decoration: none;
+    font-size: 1.1rem;
+    border-radius: 1rem;
+    aspect-ratio: 1;
+    max-width: 15rem;
+    min-height: 15rem;
     color: white;
-    font-weight: 600;
+    padding: 1rem;
+    background: var(--accent-color-semi-transparent);
+    background-position: center;
+    background-size: cover;
+    background-blend-mode: multiply;
+    justify-content: center;
+
+    svg {
+      border-radius: 50%;
+      transform: scale(1);
+      padding: 0;
+      margin: 0;
+      color: #1db954;
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+
+    .album-art {
+      height: 5rem;
+    }
+
+    .text {
+      flex: 1;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .space-filler {
+      height: 1.5rem;
+    }
+
+    a {
+      text-decoration: none;
+      color: white;
+      font-weight: 600;
+    }
   }
 }
 </style>

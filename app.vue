@@ -12,6 +12,9 @@
         <!-- Spotify -->
         <Spotify />
 
+        <!-- Album of the Week -->
+        <AOTW />
+
         <!-- Duolingo streak -->
         <div class="fact">
           <header>
@@ -39,9 +42,6 @@
             </div>
           </div>
         </div>
-
-        <!-- Album of the Week -->
-        <AOTW />
 
         <!-- Lifetime music stats -->
         <div class="fact">
@@ -243,6 +243,10 @@ a {
           align-items: center;
           gap: 0.5rem;
 
+          @media (max-width: 800px) {
+            border-color: var(--accent-color-semi-transparent);
+          }
+
           .icon {
             width: 1.5rem;
             height: 1.5rem;
@@ -260,6 +264,10 @@ a {
           align-items: center;
           gap: 0.5rem;
 
+          @media (max-width: 800px) {
+            border-color: transparent;
+          }
+
           ul {
             list-style: none;
             padding: 0;
@@ -276,40 +284,13 @@ a {
         }
       }
 
-      // Mobile tweaks for facts grid
+      // Make the grid responsive
       @media (max-width: 800px) {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      @media (max-width: 500px) {
         grid-template-columns: 1fr;
-        .aotw {
-          grid-row: 2;
-        }
-
-        @media (min-width: 600px) {
-          grid-template-columns: 1fr 1fr 1fr;
-          .aotw {
-            grid-row: 1;
-            grid-column: 2 / span 2;
-          }
-        }
-        justify-items: stretch;
-        margin-top: 3rem;
-
-        .fact {
-          header {
-            font-size: 1rem;
-            border-bottom-color: transparent;
-            color: var(--text-color);
-            padding: 0;
-            padding-bottom: 0.5rem;
-            text-align: center;
-            flex-direction: column;
-          }
-
-          .value {
-            font-size: 1rem;
-            border-bottom-color: transparent;
-            padding: 0 0 1rem 0;
-          }
-        }
       }
     }
   }

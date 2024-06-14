@@ -3,9 +3,11 @@
     <h1>Vic van Cooten</h1>
     <NuxtImg
       src="/me.jpg"
-      sizes="80px"
-      :placeholder="[50, 25, 75, 5]"
-      class="rounded"
+      :blur="10"
+      :width="80"
+      :height="80"
+      :formats="['webp']"
+      class="me"
       alt="Vic van Cooten"
     />
   </header>
@@ -17,8 +19,12 @@ header {
   flex-direction: row;
   align-items: center;
 
-  .rounded {
-    margin-bottom: 1rem;
+  .me {
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    margin: 0 1rem;
+    background-color: var(--accent-color);
   }
 
   h1 {

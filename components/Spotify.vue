@@ -112,63 +112,68 @@ function resetSpotifyAnimation() {
 
 <style scoped lang="scss">
 .now-playing {
-  grid-row: 1 / span 2;
+  @media (min-width: 800px) {
+    grid-row: 1 / span 2;
+  }
 
   .value {
     margin: 0;
     padding: 0;
   }
-}
 
-.spotify {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  align-items: center;
-  font-size: 1.1rem;
-  border-radius: 50%;
-  aspect-ratio: 1;
-  color: white;
-  padding: 1rem;
-  background: var(--accent-color-semi-transparent);
-  background-position: center;
-  background-size: cover;
-  background-blend-mode: multiply;
-  border: 0.5rem solid var(--accent-color);
-
-  svg {
-    border-radius: 50%;
-    transform: scale(1);
-    padding: 0;
-    margin: 0;
-    color: #1db954;
-    width: 1.5rem;
-    height: 1.5rem;
-  }
-
-  .album-art {
-    height: 5rem;
-  }
-
-  .text {
-    flex: 1;
-    text-align: center;
+  .spotify {
     display: flex;
     flex-direction: column;
+    gap: 1rem;
     align-items: center;
-    justify-content: center;
-  }
-
-  .space-filler {
-    height: 1.5rem;
-  }
-
-  a {
-    text-decoration: none;
+    font-size: 1.1rem;
+    border-radius: 50%;
+    aspect-ratio: 1;
+    max-width: 15rem;
+    min-height: 15rem;
     color: white;
-    font-weight: 600;
+    padding: 1rem;
+    background: var(--accent-color-semi-transparent);
+    background-position: center;
+    background-size: cover;
+    background-blend-mode: multiply;
+    border: 1px solid var(--accent-color-semi-transparent);
+
+    svg {
+      border-radius: 50%;
+      transform: scale(1);
+      padding: 0;
+      margin: 0;
+      color: #1db954;
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+
+    .album-art {
+      height: 5rem;
+    }
+
+    .text {
+      flex: 1;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .space-filler {
+      height: 1.5rem;
+    }
+
+    a {
+      text-decoration: none;
+      color: white;
+      font-weight: 600;
+    }
   }
 }
+
 .animating {
   animation: pulse 100s infinite;
 }
@@ -212,18 +217,15 @@ function resetSpotifyAnimation() {
   }
   50% {
     transform: scale(1);
-    box-shadow: 0 0 0 0px rgba(29, 185, 84, 1);
   }
   62% {
     transform: scale(1.05);
-    border-size: 0.5rem;
   }
   75% {
-    transform: scale(1) rotate(360deg);
-    box-shadow: 0 0 0 1.5rem rgba(29, 185, 84, 0);
+    transform: scale(1);
   }
   87% {
-    transform: scale(1.05) rotate(360deg);
+    transform: scale(1.05);
   }
   100% {
     transform: scale(1) rotate(360deg);
