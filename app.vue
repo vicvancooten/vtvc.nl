@@ -222,7 +222,8 @@ a {
 
     .facts-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, 15rem);
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(3, auto);
       gap: 2rem;
       margin: 2rem 0;
       align-content: normal;

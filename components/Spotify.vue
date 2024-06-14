@@ -1,5 +1,9 @@
 <template>
-  <div class="fact" v-if="spotify.isPlaying" @click="resetSpotifyAnimation">
+  <div
+    class="fact now-playing"
+    v-if="spotify.isPlaying"
+    @click="resetSpotifyAnimation"
+  >
     <header>
       <Icon name="bi:spotify" />
       Current jam
@@ -85,7 +89,7 @@ watch(
           albumUrl: album.url,
           artistName: artists[0].name,
           artistUrl: artists[0].url,
-          animationDuration: `${(1 / track.beatsPerSecond) * track.timeSignature}s`,
+          animationDuration: `${(1 / track.beatsPerSecond) * track.timeSignature * 2}s`,
           albumImage: image(album.image),
         }
       }
@@ -107,21 +111,30 @@ function resetSpotifyAnimation() {
 </script>
 
 <style scoped lang="scss">
+.now-playing {
+  grid-row: 1 / span 2;
+
+  .value {
+    margin: 0;
+    padding: 0;
+  }
+}
+
 .spotify {
   display: flex;
   flex-direction: column;
   gap: 1rem;
   align-items: center;
   font-size: 1.1rem;
-  border-radius: 1rem;
-  width: 15rem;
-  height: 15rem;
+  border-radius: 50%;
+  aspect-ratio: 1;
   color: white;
   padding: 1rem;
   background: var(--accent-color-semi-transparent);
   background-position: center;
   background-size: cover;
   background-blend-mode: multiply;
+  border: 0.5rem solid var(--accent-color);
 
   svg {
     border-radius: 50%;
@@ -162,7 +175,7 @@ function resetSpotifyAnimation() {
 
 // BPM animation
 // Animation speed is used for matching this animation to the BPM of the currently playing song
-@keyframes pulse {
+/*@keyframes pulse {
   0% {
     box-shadow: 0 0 0 0px rgba(29, 185, 84, 1);
     transform: scale(1);
@@ -171,7 +184,7 @@ function resetSpotifyAnimation() {
     transform: scale(1.05);
   }
   50% {
-    box-shadow: 0 0 0 0.7rem rgba(29, 185, 84, 0);
+    box-shadow: 0 0 0 1.25rem rgba(29, 185, 84, 0);
     transform: scale(1);
   }
   75% {
@@ -179,6 +192,41 @@ function resetSpotifyAnimation() {
   }
   100% {
     transform: scale(1);
+  }
+}*/
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0px rgba(29, 185, 84, 1);
+    transform: scale(1) rotate(0deg);
+  }
+  12% {
+    transform: scale(1.05) rotate(0deg);
+  }
+  25% {
+    transform: scale(1) rotate(0deg);
+    box-shadow: 0 0 0 1.5rem rgba(29, 185, 84, 0);
+  }
+  37% {
+    transform: scale(1.05) rotate(0deg);
+  }
+  50% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0px rgba(29, 185, 84, 1);
+  }
+  62% {
+    transform: scale(1.05);
+    border-size: 0.5rem;
+  }
+  75% {
+    transform: scale(1) rotate(360deg);
+    box-shadow: 0 0 0 1.5rem rgba(29, 185, 84, 0);
+  }
+  87% {
+    transform: scale(1.05) rotate(360deg);
+  }
+  100% {
+    transform: scale(1) rotate(360deg);
   }
 }
 </style>

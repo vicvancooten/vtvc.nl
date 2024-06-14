@@ -31,6 +31,10 @@ const albumOfTheWeekImage = img(`${lastfmData.value?.image}`, {
 </script>
 
 <style lang="scss" scoped>
+.aotw {
+  grid-row: 1 / span 2;
+  grid-column: 4;
+}
 .album-preview {
   display: flex;
   flex-direction: column;
