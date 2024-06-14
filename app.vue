@@ -7,28 +7,10 @@
       <!-- Body copy -->
       <Copy />
 
-      <!-- Spotify -->
-      <Spotify />
-
       <!-- Facts grid -->
       <div class="facts-grid">
-        <!-- Album of the Week -->
-        <div class="fact aotw">
-          <header>
-            <Icon name="ph:vinyl-record-thin" />
-            Album of the week
-          </header>
-          <div
-            class="value"
-            :style="{ backgroundImage: `url('${albumOfTheWeekImage}')` }"
-          >
-            <div class="overlay">
-              <strong>{{ lastfmData?.weekly?.name }}</strong>
-              by
-              <strong>{{ lastfmData?.weekly?.artist }}</strong>
-            </div>
-          </div>
-        </div>
+        <!-- Spotify -->
+        <Spotify />
 
         <!-- Duolingo streak -->
         <div class="fact">
@@ -54,6 +36,24 @@
             <div>
               <strong>{{ Intl.NumberFormat('nl-NL').format(steps) }}</strong>
               steps
+            </div>
+          </div>
+        </div>
+
+        <!-- Album of the Week -->
+        <div class="fact aotw">
+          <header>
+            <Icon name="ph:vinyl-record-thin" />
+            Album of the week
+          </header>
+          <div
+            class="value"
+            :style="{ backgroundImage: `url('${albumOfTheWeekImage}')` }"
+          >
+            <div class="overlay">
+              <strong>{{ lastfmData?.weekly?.name }}</strong>
+              by
+              <strong>{{ lastfmData?.weekly?.artist }}</strong>
             </div>
           </div>
         </div>
@@ -138,6 +138,10 @@ const accentColorMildNight = chroma(backgroundColorDark)
   .desaturate(2)
   .alpha(0.75)
   .rgba()
+const accentColorSemiTransparentLight = chroma(accentColorLight)
+  .alpha(0.5)
+  .rgba()
+const accentColorSemiTransparentDark = chroma(accentColorDark).alpha(0.5).rgba()
 
 // Fetch lastfm data
 const { data: lastfmData } = await useFetch('/api/lastfm')
@@ -174,6 +178,7 @@ useHead({
         --text-color-extra-contrast: ${textColorExtraContrastLight};
         --accent-color: ${accentColorLight}; 
         --accent-color-mild: rgba(${accentColorMildLight});
+        --accent-color-semi-transparent: rgba(${accentColorSemiTransparentLight});
 
         @media (prefers-color-scheme: dark) {
           --background-color: ${backgroundColorDark}; 
@@ -181,6 +186,7 @@ useHead({
           --text-color-extra-contrast: ${textColorExtraContrastDark};
           --accent-color: ${accentColorDark}; 
           --accent-color-mild: rgba(${accentColorMildNight});
+          --accent-color-semi-transparent: rgba(${accentColorSemiTransparentDark});
         }
       }`,
     },
@@ -299,15 +305,13 @@ a {
         }
 
         &.aotw {
-          header {
-            border: 0;
-          }
           .value {
             border: 0;
+            margin-top: 0.5rem;
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            min-height: 14rem;
+            min-height: 15rem;
             justify-content: center;
             border-radius: 1rem;
             padding: 0;
@@ -343,10 +347,15 @@ a {
       // Mobile tweaks for facts grid
       @media (max-width: 800px) {
         grid-template-columns: 1fr;
-        @media (min-width: 500px) {
-          grid-template-columns: 1fr 1fr;
+        .aotw {
+          grid-row: 2;
+        }
+
+        @media (min-width: 600px) {
+          grid-template-columns: 1fr 1fr 1fr;
           .aotw {
-            grid-column: span 2;
+            grid-row: 1;
+            grid-column: 2 / span 2;
           }
         }
         justify-items: stretch;

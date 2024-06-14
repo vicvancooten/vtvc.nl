@@ -3,8 +3,7 @@
     <h1>Vic van Cooten</h1>
     <NuxtImg
       src="/me.jpg"
-      :width="80"
-      :height="80"
+      sizes="80px"
       :placeholder="[50, 25, 75, 5]"
       class="rounded"
       alt="Vic van Cooten"
