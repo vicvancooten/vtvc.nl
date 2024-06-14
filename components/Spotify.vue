@@ -137,7 +137,7 @@ function resetSpotifyAnimation() {
     background-position: center;
     background-size: cover;
     background-blend-mode: multiply;
-    border: 1px solid var(--accent-color-semi-transparent);
+    border: 0.3rem solid var(--accent-color-semi-transparent);
 
     svg {
       border-radius: 50%;
