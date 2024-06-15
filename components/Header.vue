@@ -25,6 +25,7 @@ header {
     height: 80px;
     margin: 0 1rem;
     background-color: var(--accent-color);
+    object-fit: cover;
   }
 
   h1 {
