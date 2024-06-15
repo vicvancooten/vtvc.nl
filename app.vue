@@ -28,6 +28,9 @@
         <Steps />
       </div>
     </div>
+
+    <!-- Insights -->
+    <SpeedInsights />
   </div>
 </template>
 

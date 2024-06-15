@@ -1,6 +1,6 @@
 <template>
   <div class="contact">
-    <h3>Contact me</h3>
+    <h2>Contact me</h2>
     <div class="contact-grid">
       <!-- LinkedIn -->
       <NuxtLink
@@ -40,7 +40,7 @@ const { followers, html_url } = githubData.value ?? {}
 </script>
 
 <style lang="scss" scoped>
-h3 {
+h2 {
   font-size: 1.15rem;
   margin-bottom: 0.5rem;
 }
