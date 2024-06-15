@@ -1,3 +1,7 @@
+export interface HassResponseType {
+  color: string
+}
+
 export default defineEventHandler(async () => {
   // Fetch the current accent color
   const colorApi = await fetch(
@@ -14,5 +18,5 @@ export default defineEventHandler(async () => {
   // Return the data
   return {
     color,
-  }
+  } as HassResponseType
 })

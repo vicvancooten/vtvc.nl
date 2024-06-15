@@ -1,11 +1,13 @@
 <template>
   <div class="fact">
     <header>
-      <Icon name="mdi:fire" />
+      <Icon name="simple-icons:duolingo" />
       Duolingo streak
     </header>
     <div class="value">
       <div>
+        <Icon name="mdi:fire" />
+
         <strong>{{ streak }}</strong>
         days
       </div>

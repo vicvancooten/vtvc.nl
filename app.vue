@@ -7,12 +7,16 @@
       <!-- Body copy -->
       <Copy />
 
+      <!-- Contact grid -->
       <ContactGrid />
 
       <!-- Facts grid -->
       <div class="facts-grid">
         <!-- Spotify -->
         <Spotify />
+
+        <!-- Lifetime music stats -->
+        <LastFMStats />
 
         <!-- Album of the Week -->
         <AOTW />
@@ -22,9 +26,6 @@
 
         <!-- Steps -->
         <Steps />
-
-        <!-- Lifetime music stats -->
-        <LastFMStats />
       </div>
     </div>
   </div>
@@ -35,8 +36,6 @@
  * This page loads a lot of data when rendering, but it uses ISR to make sure the user gets a fast experience.
  */
 import chroma from 'chroma-js'
-import moment from 'moment-timezone'
-const img = useImage()
 
 // Fetch hass data, used for the primary color and steps
 const { data } = await useFetch('/api/hass')
