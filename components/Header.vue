@@ -6,6 +6,7 @@
       :blur="10"
       :width="80"
       :height="80"
+      :sizes="'80px'"
       :formats="['webp']"
       class="me"
       alt="Vic van Cooten"
@@ -25,7 +26,6 @@ header {
     height: 80px;
     margin: 0 1rem;
     background-color: var(--accent-color);
-    object-fit: cover;
   }
 
   h1 {
