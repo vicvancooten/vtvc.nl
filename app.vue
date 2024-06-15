@@ -39,6 +39,7 @@
  * This page loads a lot of data when rendering, but it uses ISR to make sure the user gets a fast experience.
  */
 import chroma from 'chroma-js'
+import { SpeedInsights } from '@vercel/speed-insights/nuxt'
 
 // Fetch hass data, used for the primary color and steps
 const { data } = await useFetch('/api/hass')
@@ -76,6 +77,23 @@ useHead({
   htmlAttrs: {
     lang: 'en',
   },
+  // Preload fonts
+  link: [
+    {
+      rel: 'preload',
+      as: 'font',
+      type: 'font/woff2',
+      href: '/fonts/Quicksand-Regular.woff2',
+      crossorigin: 'anonymous',
+    },
+    {
+      rel: 'preload',
+      as: 'font',
+      type: 'font/woff2',
+      href: '/fonts/Quicksand-Bold.woff2',
+      crossorigin: 'anonymous',
+    },
+  ],
   // Set the accent color to the theme color
   meta: [
     {
