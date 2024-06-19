@@ -37,7 +37,7 @@ export default defineEventHandler(async () => {
   // Check if the response is already cached
   const cachedResponse = cache.get('nowPlayingResponse')
   if (cachedResponse) {
-    return { cachedResponse, cache: 'hit' }
+    return { ...cachedResponse, cache: 'hit' }
   }
 
   // Fetch the now playing info
@@ -91,7 +91,7 @@ export default defineEventHandler(async () => {
   cache.set('nowPlayingResponse', nowPlayingResponse)
 
   // Return the response
-  return { nowPlayingResponse, cache: 'miss' }
+  return { ...nowPlayingResponse, cache: 'miss' }
 })
 
 export const getAccessToken = async () => {
