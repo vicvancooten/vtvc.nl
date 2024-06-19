@@ -16,6 +16,12 @@ export default defineNuxtConfig({
     },
   },
 
+  fonts: {
+    google: {
+      families: ['Quicksand:400,500,700'],
+    },
+  },
+
   devtools: { enabled: false },
 
   modules: ['@nuxt/fonts', '@nuxt/image', 'nuxt-icon'],
