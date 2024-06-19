@@ -1,3 +1,5 @@
+import NodeCache from 'node-cache'
+
 interface NowPlayingItemType {
   id: string
   name: string
@@ -27,9 +29,18 @@ export interface NowPlayingResponse {
   artists?: { name: string; url: string }[]
 }
 
-export default defineEventHandler(async (event) => {
+const cache = new NodeCache({ stdTTL: 15 })
+
+export default defineEventHandler(async () => {
   const { access_token } = await getAccessToken()
 
+  // Check if the response is already cached
+  const cachedResponse = cache.get('nowPlayingResponse')
+  if (cachedResponse) {
+    return { cachedResponse, cache: 'hit' }
+  }
+
+  // Fetch the now playing info
   let response
   let nowPlayingInfo
   try {
@@ -56,7 +67,7 @@ export default defineEventHandler(async (event) => {
 
   const item = nowPlayingInfo.item as NowPlayingItemType
 
-  return {
+  const nowPlayingResponse = {
     album: {
       name: item?.album?.name,
       image: item?.album?.images?.[0]?.url,
@@ -75,6 +86,12 @@ export default defineEventHandler(async (event) => {
       ...(await getAudioFeatures(item?.id, access_token)),
     },
   } as NowPlayingResponse
+
+  // Cache the response for 15 seconds
+  cache.set('nowPlayingResponse', nowPlayingResponse)
+
+  // Return the response
+  return { nowPlayingResponse, cache: 'miss' }
 })
 
 export const getAccessToken = async () => {

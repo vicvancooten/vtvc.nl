@@ -8,7 +8,7 @@ export default defineNuxtConfig({
       '/api/github': { isr: 59 },
       '/api/hass': { isr: 59 },
       '/api/lastfm-stats': { isr: 59 },
-      '/api/spotify': { isr: 29 },
+      '/api/spotify': { isr: false }, // Caching happens in the API itself
       '/api/steps': { isr: 59 },
 
       // Main route
