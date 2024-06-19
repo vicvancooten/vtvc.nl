@@ -10,6 +10,7 @@ export default defineNuxtConfig({
       '/api/lastfm-stats': { isr: 59 },
       '/api/spotify': { isr: false }, // Caching happens in the API itself
       '/api/steps': { isr: 59 },
+      '/api/shopping': { isr: 59 },
 
       // Main route
       '/**': { isr: 1 },

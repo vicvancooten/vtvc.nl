@@ -26,6 +26,9 @@
 
         <!-- Steps -->
         <Steps />
+
+        <!-- Items on shopping list -->
+        <Shopping />
       </div>
     </div>
 
