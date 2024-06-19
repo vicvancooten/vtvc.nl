@@ -98,7 +98,7 @@ useHead({
   meta: [
     {
       name: 'theme-color',
-      content: accentColorDark,
+      content: color.hex(),
     },
     {
       name: 'description',
