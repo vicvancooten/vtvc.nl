@@ -1,5 +1,5 @@
 <template>
-  <div class="fact">
+  <div class="fact" v-if="shopping_list_items > 0">
     <header>
       <Icon name="mdi:basket" />
       Items on shopping list
