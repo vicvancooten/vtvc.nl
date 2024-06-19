@@ -55,6 +55,13 @@ export const useFetchData = <T>(url: string, intervalDuration = 60) => {
     }
   }
 
+  onMounted(() => {
+    // This is the initial, client-side fetch that causes any stale data by ISR to be refetched. This doesn't cause any additional load due to the caching strategy on the route.
+    if (process.client) {
+      fetchData()
+    }
+  })
+
   onUnmounted(() => {
     clearFetchInterval()
     if (process.client) {
