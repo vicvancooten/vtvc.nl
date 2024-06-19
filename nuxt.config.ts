@@ -12,7 +12,7 @@ export default defineNuxtConfig({
       '/api/steps': { isr: 59 },
 
       // Main route
-      '/**': { isr: true },
+      '/**': { isr: 1 },
     },
   },
 
