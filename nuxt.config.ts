@@ -11,6 +11,7 @@ export default defineNuxtConfig({
       '/api/spotify': { isr: false }, // Caching happens in the API itself
       '/api/steps': { isr: 59 },
       '/api/shopping': { isr: 59 },
+      '/api/water': { isr: 59 },
 
       // Main route
       '/**': { isr: 1 },

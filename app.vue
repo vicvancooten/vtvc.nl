@@ -24,6 +24,9 @@
         <!-- Duolingo streak -->
         <Duolingo />
 
+        <!-- Water intake -->
+        <Water />
+
         <!-- Steps -->
         <Steps />
 
