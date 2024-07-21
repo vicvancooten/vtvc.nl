@@ -1,5 +1,5 @@
 <template>
-  <div class="fact">
+  <div class="fact" v-if="state > 0">
     <header>
       <Icon name="ion:water" />
       Water intake
