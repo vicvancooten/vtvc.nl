@@ -1,11 +1,13 @@
 <template>
   <div class="fact" v-if="state > 0">
     <header>
-      <Icon name="ion:water" />
+      <Icon name="mdi:glass" />
       Water intake
     </header>
     <div class="value">
       <div>
+        <Icon name="mdi:water" />
+
         <strong>
           {{
             Intl.NumberFormat('nl-NL', {
@@ -32,3 +34,11 @@ await initialFetch()
 
 const state = data.value?.state ?? 0
 </script>
+
+<style scoped lang="scss">
+.value > div {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+</style>

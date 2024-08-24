@@ -20,3 +20,11 @@ const { data } = await useFetch('/api/duolingo')
 const success = data.value?.success
 const streak = data.value?.streak ?? -1
 </script>
+
+<style scoped lang="scss">
+.value > div {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+</style>

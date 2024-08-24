@@ -1,11 +1,13 @@
 <template>
   <div class="fact" v-if="steps > 999">
     <header>
-      <Icon name="fa-solid:shoe-prints" />
+      <Icon name="gis:hiker" />
       Steps today
     </header>
     <div class="value">
       <div>
+        <Icon name="fa-solid:shoe-prints" />
+
         <strong>{{ Intl.NumberFormat('nl-NL').format(steps) }}</strong>
         steps
       </div>
@@ -25,3 +27,11 @@ await initialFetch()
 
 const steps = data.value?.steps ?? 0
 </script>
+
+<style scoped lang="scss">
+.value > div {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+</style>
