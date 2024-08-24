@@ -1,5 +1,5 @@
 <template>
-  <div class="fact">
+  <div class="fact" v-if="success">
     <header>
       <Icon name="simple-icons:duolingo" />
       Duolingo streak
@@ -16,6 +16,7 @@
 </template>
 
 <script lang="ts" setup>
-const { data: duolingoData } = await useFetch('/api/duolingo')
-const streak = duolingoData.value?.streak ?? 0
+const { data } = await useFetch('/api/duolingo')
+const success = data.value?.success
+const streak = data.value?.streak ?? -1
 </script>
