@@ -54,6 +54,7 @@ export default defineEventHandler(async () => {
     )
     nowPlayingInfo = await response.json()
   } catch (error) {
+    console.error('Error fetching now playing info:', error)
     return { isPlaying: false }
   }
 
@@ -62,6 +63,7 @@ export default defineEventHandler(async () => {
     response.status === 202 ||
     response.status > 400
   ) {
+    console.error('Spotify API responded with:', response.status)
     return { isPlaying: false }
   }
 
