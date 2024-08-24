@@ -25,6 +25,6 @@ export default defineNuxtConfig({
   },
 
   devtools: { enabled: false },
-
   modules: ['@nuxt/fonts', '@nuxt/image', 'nuxt-icon'],
+  compatibilityDate: '2024-08-24',
 })
