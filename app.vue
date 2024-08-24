@@ -22,7 +22,7 @@
         <AOTW />
 
         <!-- Duolingo streak -->
-        <Duolingo />
+        <!-- <Duolingo /> -->
 
         <!-- Water intake -->
         <Water />
