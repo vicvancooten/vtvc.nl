@@ -14,10 +14,9 @@
 
       <!-- Languages -->
       <div v-for="language in languages" :key="language.id">
-        <CountryFlag
-          :country="language.language"
-          size="small"
-          :title="language.title"
+        <NuxtImg
+          :src="`https://aiclientportalprod.blob.core.windows.net/clientportal/static/flags/${language.language}.svg`"
+          class="flag"
         />
         <strong>{{ Intl.NumberFormat('nl-NL').format(language.xp) }}</strong>
         XP
@@ -27,7 +26,6 @@
 </template>
 
 <script lang="ts" setup>
-import CountryFlag from 'vue-country-flag-next'
 const { data } = await useFetch('/api/duolingo')
 const success = data.value?.success
 const streak = data.value?.streak ?? -1
@@ -40,10 +38,9 @@ const languages = (data.value?.languages ?? []).slice(0, 2)
   align-items: center;
   gap: 0.5rem;
 
-  .small-flag {
-    border-radius: 50%;
-    width: 3rem;
-    height: 3rem;
+  .flag {
+    width: 1rem;
+    height: 1rem;
   }
 }
 </style>

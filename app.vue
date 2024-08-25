@@ -198,6 +198,8 @@ a {
       justify-content: center;
       align-items: start;
       justify-items: stretch;
+      border-top: 1px solid var(--accent-color-semi-transparent);
+      padding-top: 2rem;
 
       .fact {
         header {
