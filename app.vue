@@ -199,7 +199,7 @@ a {
       align-items: start;
       justify-items: stretch;
       border-top: 1px solid var(--accent-color-semi-transparent);
-      padding-top: 2rem;
+      padding: 2rem 1rem;
 
       .fact {
         header {

@@ -17,6 +17,7 @@
         <NuxtImg
           :src="`https://aiclientportalprod.blob.core.windows.net/clientportal/static/flags/${language.language}.svg`"
           class="flag"
+          :title="language.title"
         />
         <strong>{{ Intl.NumberFormat('nl-NL').format(language.xp) }}</strong>
         XP
