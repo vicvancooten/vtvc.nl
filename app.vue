@@ -21,11 +21,11 @@
         <!-- Album of the Week -->
         <AOTW />
 
-        <!-- Duolingo streak -->
-        <Duolingo />
-
         <!-- Water intake -->
         <Water />
+
+        <!-- Duolingo streak -->
+        <Duolingo />
 
         <!-- Steps -->
         <Steps />

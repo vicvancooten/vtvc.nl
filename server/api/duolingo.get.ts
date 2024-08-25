@@ -9,6 +9,7 @@ export default defineEventHandler(async (event) => {
       success: false,
       error: 'DUOLINGO_USERNAME environment variable not set',
       streak: -1,
+      languages: [],
     }
   }
 
@@ -23,5 +24,19 @@ export default defineEventHandler(async (event) => {
     userData?.streakData?.currentStreak?.length ?? 0,
     userData?.streakData?.previousStreak?.length ?? 0,
   )
-  return { success: true, streak }
+
+  // Languages, show XP per language
+  const languages = userData.courses.map((course: CourseType) => ({
+    language: course.learningLanguage,
+    xp: course.xp,
+    title: course.title,
+  }))
+
+  return { success: true, streak, languages }
 })
+
+type CourseType = {
+  learningLanguage: string
+  xp: number
+  title: string
+}
