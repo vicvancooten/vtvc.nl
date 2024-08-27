@@ -44,8 +44,9 @@
 /**
  * This page loads a lot of data when rendering, but it uses ISR to make sure the user gets a fast experience.
  */
-import chroma from 'chroma-js'
 import { SpeedInsights } from '@vercel/speed-insights/nuxt'
+
+import chroma from 'chroma-js'
 
 // Fetch hass data, used for the primary color and steps
 const { data } = await useFetch('/api/hass')
