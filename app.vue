@@ -27,6 +27,9 @@
         <!-- Duolingo streak -->
         <Duolingo />
 
+        <!-- Untappd stats -->
+        <Beer />
+
         <!-- Steps -->
         <Steps />
 

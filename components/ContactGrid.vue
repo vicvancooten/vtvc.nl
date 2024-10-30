@@ -29,14 +29,30 @@
           <div class="label">{{ followers }} followers</div>
         </div>
       </NuxtLink>
+
+      <!-- Untappd -->
+      <NuxtLink
+        :to="`https://untappd.com/user/${username}`"
+        target="_blank"
+        class="contact-item"
+      >
+        <div class="channel-badge">
+          <Icon name="simple-icons:untappd" />
+          <div class="label">{{ friends }} friends</div>
+        </div>
+      </NuxtLink>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 const { data: githubData } = await useFetch('/api/github')
-
 const { followers, html_url } = githubData.value ?? {}
+
+const { data: untappdData } = await useFetch('/api/beer')
+const {
+  data: { friends, username },
+} = untappdData.value ?? {}
 </script>
 
 <style lang="scss" scoped>

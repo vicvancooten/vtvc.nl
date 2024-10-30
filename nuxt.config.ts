@@ -4,6 +4,7 @@ export default defineNuxtConfig({
     routeRules: {
       // API routes cache shorter than the main route, to make sure a new invokation triggers ISR
       '/api/aotw': { isr: 59 },
+      '/api/beer': { isr: 30 }, // Caching also happens at the proxy level, this is just to dedupe
       '/api/duolingo': { isr: false }, // Caching happens at the proxy level
       '/api/github': { isr: 59 },
       '/api/hass': { isr: 59 },
