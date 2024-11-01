@@ -15,7 +15,7 @@ export default defineNuxtConfig({
       '/api/water': { isr: 59 },
 
       // Main route
-      '/**': { isr: 1 },
+      '/**': { isr: true },
     },
   },
 
